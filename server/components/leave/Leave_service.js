@@ -18,6 +18,7 @@ const updateLeave = catchError(async (req, res) => {
 
 const createLeave = catchError(async (req, res) => {
     const { Employee_Id, Work_date, Start_time, End_time, Hours, Leave_type_Id } = req.body;
+
     const newLeave = await leaveRepository.createLeave({
         Employee_Id,
         Work_date,
