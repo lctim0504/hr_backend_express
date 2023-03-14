@@ -1,7 +1,7 @@
 import sequelize from "../../Database.js";
 import config from "../../Database2.js";
-import LeaveModel from "./Leave_model.js";
 import sql from "mssql"
+import LeaveModel from "../../model/Leave_model.js";
 
 const pool = new sql.ConnectionPool(config);
 

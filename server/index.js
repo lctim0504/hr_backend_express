@@ -1,9 +1,15 @@
 import express from "express"
 import sql from "mssql"
 import dotenv from "dotenv"
-
+import cors from "cors"
 dotenv.config()
+
 const app = express()
+app.use(cors())
+
+// app.use(cors({
+//     origin: ['http://localhost:3000']
+// }));
 
 const port = 5000;
 app.listen(port, () => {
@@ -65,9 +71,11 @@ app.listen(port, () => {
 //RouteControllers
 import UserContoller from "./components/user/User_controller.js"
 import LeaveController from "./components/leave/Leave_controller.js"
+import AuthController from "./components/auth/Auth_controller.js"
 app.use(express.json())
 app.use("/users", UserContoller)
 app.use("/leaves", LeaveController)
+app.use("/auth", AuthController)
 
 
 

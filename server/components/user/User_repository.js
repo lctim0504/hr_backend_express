@@ -1,5 +1,5 @@
 import sequelize from "../../Database.js";
-import UserModel from "./User_model.js";
+import UserModel from "../../model/User_model.js";
 
 const User = UserModel(sequelize);
 
