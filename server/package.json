@@ -18,6 +18,5 @@
     "nodemon": "^2.0.21",
     "sequelize": "^6.29.2",
     "sqlite3": "^5.1.4"
-  },
-  "proxy": "http://localhost:5000"
+  }
 }
