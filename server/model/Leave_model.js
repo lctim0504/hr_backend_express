@@ -3,7 +3,7 @@ import sequelize from "../Database.js";
 import Employee from "./Employee_model.js";
 
 const Leave = sequelize.define('Leave', {
-  Id: {
+  id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
@@ -46,6 +46,10 @@ const Leave = sequelize.define('Leave', {
   },
   permit: {
     type: DataTypes.BOOLEAN,
+    allowNull: false
+  },
+  last_update_time: {
+    type: DataTypes.DATE,
     allowNull: false
   },
 }, {

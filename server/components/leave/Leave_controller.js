@@ -8,7 +8,7 @@ LeaveController.get("/filter", leaveService.getDpmLeave); //主管取得部門�
 
 LeaveController.post("/", leaveService.createLeave);
 LeaveController.get("/:id", leaveService.getLeave);
-LeaveController.put("/:id", leaveService.updateLeave);
+LeaveController.put("/", leaveService.updateLeave);
 LeaveController.delete("/:id", leaveService.deleteLeave);
 
 export default LeaveController;

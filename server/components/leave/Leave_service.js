@@ -10,10 +10,11 @@ const catchError = (handler) => async (req, res, next) => {
 };
 
 const updateLeave = catchError(async (req, res) => {
-    console.log(13);
-
-    const id = req.params.id;
     const body = req.body;
+    const id = req.body.id;
+    const last_update_time = req.body.last_update_time;
+    if (last_update_time == undefined)
+        return res.status(400).json({ error: "Last update time is required" })
     const updatedLeave = await leaveRepository.updateLeave(id, body);
     res.json(updatedLeave);
 });
@@ -44,7 +45,6 @@ const getAllLeaves = catchError(async (req, res) => {
 const getDpmLeave = catchError(async (req, res) => {
     const dpm = req.query.dpm;
     const getDpmLeave = await leaveRepository.getDpmLeave(dpm);
-    console.log(getDpmLeave);
     res.json(getDpmLeave)
 });
 

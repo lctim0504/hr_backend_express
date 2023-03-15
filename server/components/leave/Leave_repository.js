@@ -52,7 +52,7 @@ const getLeaveById = async (id) => {
 };
 
 const updateLeave = async (id, LeaveData) => {
-    return Leave.update(LeaveData, { where: { employee_id: id } });
+    return Leave.update(LeaveData, { where: { id } });
 };
 
 const deleteLeave = async (id) => {
