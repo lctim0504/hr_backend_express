@@ -1,13 +1,14 @@
 import express from "express";
-import LeaveService from "./Leave_service.js";
+import leaveService from "./Leave_service.js";
 
 const LeaveController = express.Router();
 
-LeaveController.get("/", LeaveService.getAllLeaves);
+LeaveController.get("/", leaveService.getAllLeaves);
+LeaveController.get("/filter", leaveService.getDpmLeave); //主管取得部門請假資料
 
-LeaveController.post("/", LeaveService.createLeave);
-LeaveController.get("/:id", LeaveService.getLeave);
-LeaveController.put("/:id", LeaveService.updateLeave);
-LeaveController.delete("/:id", LeaveService.deleteLeave);
+LeaveController.post("/", leaveService.createLeave);
+LeaveController.get("/:id", leaveService.getLeave);
+LeaveController.put("/:id", leaveService.updateLeave);
+LeaveController.delete("/:id", leaveService.deleteLeave);
 
 export default LeaveController;

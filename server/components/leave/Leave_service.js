@@ -10,6 +10,8 @@ const catchError = (handler) => async (req, res, next) => {
 };
 
 const updateLeave = catchError(async (req, res) => {
+    console.log(13);
+
     const id = req.params.id;
     const body = req.body;
     const updatedLeave = await leaveRepository.updateLeave(id, body);
@@ -17,16 +19,8 @@ const updateLeave = catchError(async (req, res) => {
 });
 
 const createLeave = catchError(async (req, res) => {
-    const { Employee_Id, Work_date, Start_time, End_time, Hours, Leave_type_Id } = req.body;
-
-    const newLeave = await leaveRepository.createLeave({
-        Employee_Id,
-        Work_date,
-        Start_time,
-        End_time,
-        Hours,
-        Leave_type_Id
-    });
+    const body = req.body;
+    const newLeave = await leaveRepository.createLeave(body);
     res.json(newLeave);
 });
 
@@ -47,4 +41,11 @@ const getAllLeaves = catchError(async (req, res) => {
     res.json(getLeaves);
 });
 
-export default { updateLeave, deleteLeave, getAllLeaves, getLeave, createLeave };
+const getDpmLeave = catchError(async (req, res) => {
+    const dpm = req.query.dpm;
+    const getDpmLeave = await leaveRepository.getDpmLeave(dpm);
+    console.log(getDpmLeave);
+    res.json(getDpmLeave)
+});
+
+export default { updateLeave, deleteLeave, getAllLeaves, getLeave, createLeave, getDpmLeave };
