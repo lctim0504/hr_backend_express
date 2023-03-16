@@ -72,10 +72,12 @@ app.listen(port, () => {
 import UserContoller from "./components/user/User_controller.js"
 import LeaveController from "./components/leave/Leave_controller.js"
 import AuthController from "./components/auth/Auth_controller.js"
+import ScheduleController from "./components/schedule/Schedule_controller.js"
 app.use(express.json())
 app.use("/users", UserContoller)
 app.use("/leaves", LeaveController)
 app.use("/auth", AuthController)
+app.use("/schedule", ScheduleController)
 
 
 

@@ -7,6 +7,7 @@ import {
 import Login from './component/Login';
 import Home from './component/Home';
 import Approval from './component/Approval';
+import MySchedule from './component/Schedule';
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/approval" element={<Approval />} />
+          <Route path="/schedule" element={<MySchedule />} />
         </Routes>
       </Router>
     </div>

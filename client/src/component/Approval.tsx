@@ -134,7 +134,7 @@ const Approval = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/leaves/filter?dpm=PTS002');
+            const response = await axios.get('http://localhost:5000/leaves/filter?dpm=' + 'PTS002');
             const result = response.data || []; // 如果 response.data 是 undefined 就設為空陣列
             setData(result);
         } catch (error) {
@@ -143,8 +143,6 @@ const Approval = () => {
     }
 
     const handlePermitClick = async (record: DataType) => {
-        console.log(record.permit);
-
         const updatedRecord = record.permit == true ?
             { id: record.id, permit: false, last_update_time: moment().format('yyyy-MM-DD HH:mm') } :
             { id: record.id, permit: true, last_update_time: moment().format('yyyy-MM-DD HH:mm') };
