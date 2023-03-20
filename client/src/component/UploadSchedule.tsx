@@ -38,6 +38,7 @@ const UploadSchedule: React.FC = () => {
             const worksheet = workbook.Sheets[worksheetName];
             const targetdata: ExcelData[] = XLSX.utils.sheet_to_json(worksheet, { range: 2 });
 
+            console.log(targetdata);
             const fixKeyName = targetdata.map((obj: any) => {
                 const transformedObj: any = {};
                 for (const [key, value] of Object.entries(obj)) {
@@ -63,7 +64,7 @@ const UploadSchedule: React.FC = () => {
                 console.log(response);
             }
         } catch (error) {
-            console.log("error updating permission:");
+            console.log("error uploading schedule");
         }
     }
     return (
