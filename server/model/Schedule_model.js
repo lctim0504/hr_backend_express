@@ -1,10 +1,9 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../Database.js";
 
-const scheduleModel = sequelize.define('schedule1', {
+const Schedule = sequelize.define('Schedule', {
     seq: {
         type: DataTypes.INTEGER,
-        allowNull: false,
         autoIncrement: true,
         primaryKey: true,
     },
@@ -20,134 +19,42 @@ const scheduleModel = sequelize.define('schedule1', {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    '1': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '2': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '3': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '4': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '5': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '6': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '7': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '8': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '9': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '10': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '11': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '12': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '13': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '14': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '15': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '16': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '17': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '18': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '19': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '20': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '21': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '22': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '23': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '24': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '25': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '26': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '27': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '28': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '29': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '30': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    '31': {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
+    '1': DataTypes.STRING,
+    '2': DataTypes.STRING,
+    '3': DataTypes.STRING,
+    '4': DataTypes.STRING,
+    '5': DataTypes.STRING,
+    '6': DataTypes.STRING,
+    '7': DataTypes.STRING,
+    '8': DataTypes.STRING,
+    '9': DataTypes.STRING,
+    '10': DataTypes.STRING,
+    '11': DataTypes.STRING,
+    '12': DataTypes.STRING,
+    '13': DataTypes.STRING,
+    '14': DataTypes.STRING,
+    '15': DataTypes.STRING,
+    '16': DataTypes.STRING,
+    '17': DataTypes.STRING,
+    '18': DataTypes.STRING,
+    '19': DataTypes.STRING,
+    '20': DataTypes.STRING,
+    '21': DataTypes.STRING,
+    '22': DataTypes.STRING,
+    '23': DataTypes.STRING,
+    '24': DataTypes.STRING,
+    '25': DataTypes.STRING,
+    '26': DataTypes.STRING,
+    '27': DataTypes.STRING,
+    '28': DataTypes.STRING,
+    '29': DataTypes.STRING,
+    '30': DataTypes.STRING,
+    '31': DataTypes.STRING,
 }, {
-    tableName: 'schedule1',
+    tableName: 'schedule',
     timestamps: false
 });
 
-export default scheduleModel;
+export default Schedule;
+
 

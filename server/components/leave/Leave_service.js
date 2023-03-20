@@ -1,3 +1,4 @@
+import { Sequelize } from "sequelize";
 import leaveRepository from "./Leave_repository.js";
 
 const catchError = (handler) => async (req, res, next) => {
@@ -11,16 +12,18 @@ const catchError = (handler) => async (req, res, next) => {
 
 const updateLeave = catchError(async (req, res) => {
     const body = req.body;
-    const id = req.body.id;
-    const last_update_time = req.body.last_update_time;
-    if (last_update_time == undefined)
-        return res.status(400).json({ error: "Last update time is required" })
-    const updatedLeave = await leaveRepository.updateLeave(id, body);
+    body.start_time = Sequelize.literal(`Cast('${body.start_time}' as datetime)`);
+    body.end_time = Sequelize.literal(`Cast('${body.end_time}' as datetime)`);
+    const updatedLeave = await leaveRepository.updateLeave(body.seq, body);
     res.json(updatedLeave);
 });
 
 const createLeave = catchError(async (req, res) => {
     const body = req.body;
+    console.log(body);
+    body.start_time = Sequelize.literal(`Cast('${body.start_time}' as datetime)`);
+    body.end_time = Sequelize.literal(`Cast('${body.end_time}' as datetime)`);
+    console.log(body);
     const newLeave = await leaveRepository.createLeave(body);
     res.json(newLeave);
 });

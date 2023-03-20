@@ -1,17 +1,18 @@
-import sequelize from "../../Database.js";
-import UserModel from "../../model/User_model.js";
-
-const User = UserModel(sequelize);
+import Account from "../../model/Account_model.js";
+import Employee from "../../model/Employee_model.js";
 
 const createAuth = async (AuthData) => {
-
+    //
 };
 
-const checkId = async (employee_id) => {
-    return await User.findOne({ where: { employee_id } });
+const checkId = async (account) => {
+    return await Account.findOne({ where: { account } });
 };
-const checkPassword = async (employee_id, password) => {
-    return await User.findOne({ where: { employee_id, password } });
+const checkPassword = async (account, password) => {
+    return await Account.findOne({ where: { account, password } });
+};
+const getUserData = async (employee_id) => {
+    return await Employee.findOne({ where: { employee_id } });
 };
 
-export default { checkId, checkPassword, createAuth };
+export default { checkId, checkPassword, createAuth, getUserData };

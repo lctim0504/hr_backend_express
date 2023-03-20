@@ -1,18 +1,19 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../Database.js";
 
-const Employee = sequelize.define('Employee', {
-  employee_id: {
+const Account = sequelize.define('Account', {
+  account: {
     type: DataTypes.STRING,
     allowNull: false,
     primaryKey: true,
   },
-  name: DataTypes.STRING,
-  department_id: DataTypes.STRING,
-
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
 }, {
-  tableName: 'employee',
+  tableName: 'account',
   timestamps: false
 });
-export default Employee;
 
+export default Account;

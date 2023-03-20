@@ -16,15 +16,19 @@ const createAuth = catchError(async (req, res) => {
 const getAuth = catchError(async (req, res) => {
     const body = req.body;
     //確認帳號
-    const checkId = await authRepository.checkId(body.employee_id);
+    const checkId = await authRepository.checkId(body.account);
     if (checkId == null) {
         return res.status(404).json({ error: "Account not found" })
     }
-    const checkPassword = await authRepository.checkPassword(body.employee_id, body.password);
-    if (checkPassword == null) {
+    const response = await authRepository.checkPassword(body.account, body.password);
+    if (response == null) {
         return res.status(404).json({ error: "Password Incorrect" })
     }
-    return res.status(200).json(checkPassword);
+    const userData = await authRepository.getUserData(response.account);
+    if (userData == null) {
+        return res.status(404).json({ error: "Employee Data not found" })
+    }
+    return res.status(200).json(userData);
 });
 
 export default { getAuth, createAuth };

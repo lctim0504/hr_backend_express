@@ -1,9 +1,9 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../Database.js";
-import Employee from "./Employee_model.js";
+import Employee from "./Employee_.js";
 
-const Leave = sequelize.define('Leave', {
-  id: {
+const OvertimeRecord = sequelize.define('OvertimeRecord', {
+  seq: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
@@ -12,21 +12,13 @@ const Leave = sequelize.define('Leave', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  department_id: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  leave_date: {
-    type: DataTypes.DATEONLY,
-    allowNull: false
-  },
   start_time: {
     type: DataTypes.DATE,
-    allowNull: true
+    allowNull: false,
   },
   end_time: {
     type: DataTypes.DATE,
-    allowNull: true
+    allowNull: false,
   },
   hours: {
     type: DataTypes.FLOAT,
@@ -38,28 +30,25 @@ const Leave = sequelize.define('Leave', {
   },
   reason: {
     type: DataTypes.TEXT,
-    allowNull: true
   },
-  substitute: {
+  sub_name: {
     type: DataTypes.STRING,
-    allowNull: true
   },
   permit: {
     type: DataTypes.BOOLEAN,
-    allowNull: false
   },
-  last_update_time: {
+  permit_time: {
     type: DataTypes.DATE,
-    allowNull: false
+  },
+  create_time: {
+    type: DataTypes.DATE,
   },
 }, {
   dialectOptions: {
     collate: 'Chinese_Taiwan_Stroke_CI_AS'
   },
-  tableName: 'leave_data1',
+  tableName: 'overtime_records',
   timestamps: false
 });
 
-Leave.belongsTo(Employee, { foreignKey: 'employee_id', as: 'employee' });
-
-export default Leave;
+export default OvertimeRecord;
