@@ -15,6 +15,7 @@ const createAuth = catchError(async (req, res) => {
 
 const getAuth = catchError(async (req, res) => {
     const body = req.body;
+    console.log(req.cookies);
     //確認帳號
     const checkId = await authRepository.checkId(body.account);
     if (checkId == null) {

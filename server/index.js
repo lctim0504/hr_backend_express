@@ -68,6 +68,9 @@ app.listen(port, () => {
 //     res.send(users);
 // });
 
+import cookieParser from "cookie-parser"
+app.use(cookieParser()) 
+
 //RouteControllers
 import UserContoller from "./components/user/User_controller.js"
 import LeaveController from "./components/leave/Leave_controller.js"
