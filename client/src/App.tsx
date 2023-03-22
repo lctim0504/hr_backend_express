@@ -9,6 +9,7 @@ import Home from './component/Home';
 import Approval from './component/Approval';
 import MySchedule from './component/Schedule';
 import Login2 from './component/Login2';
+import AdminPage from './component/admin/AdminPage';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/approval" element={<Approval />} />
           <Route path="/schedule" element={<MySchedule />} />
+          <Route path="/admin" element={<AdminPage />} />
         </Routes>
       </Router>
     </div>

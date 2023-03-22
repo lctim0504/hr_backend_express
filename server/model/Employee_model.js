@@ -11,7 +11,7 @@ const Employee = sequelize.define('Employee', {
   name: DataTypes.STRING,
   department_id: DataTypes.STRING,
   work_type_id: DataTypes.STRING,
-
+  isAdmin: DataTypes.BOOLEAN,
 }, {
   tableName: 'employee',
   timestamps: false

@@ -13,7 +13,7 @@ const Login2 = () => {
     const [fail, setFail] = useState(false);
 
     useEffect(() => {
-        axios.get('http://localhost:5000/users')
+        axios.get('http://localhost:5000/item/userIds')
             .then(response => {
                 const result = response.data.map((item: { employee_id: any; }) => ({ value: item.employee_id.toString() }))
                 console.log(result)

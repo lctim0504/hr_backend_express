@@ -1,5 +1,6 @@
 import express from "express";
 import userService from "./User_service.js";
+import { isAdmin, isUser } from "../../JWT_token.js";
 
 const UserContoller = express.Router();
 

@@ -1,6 +1,5 @@
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import './Sample.css';
 import UploadSchedule from './UploadSchedule';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';

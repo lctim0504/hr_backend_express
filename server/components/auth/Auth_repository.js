@@ -2,7 +2,7 @@ import Account from "../../model/Account_model.js";
 import Employee from "../../model/Employee_model.js";
 import WorkType from "../../model/WorkType_model.js";
 
-const createAuth = async (AuthData) => {
+const createAuth = async (userData) => {
     return Account.create(userData);
 };
 
