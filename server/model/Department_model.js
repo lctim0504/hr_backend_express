@@ -4,6 +4,7 @@ import sequelize from "../Database.js";
 const Department = sequelize.define('Department', {
     department_id: {
         type: DataTypes.STRING(50),
+        primaryKey: true,
         allowNull: false
     },
     name: {

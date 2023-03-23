@@ -1,7 +1,9 @@
 import React from 'react'
 import { Section, SectionGroup, ColumnContainer } from './styled'
-import EmployeeForm from './components/EmployeeForm'
-import DataChangeForm from './components/DataChangeForm'
+import EmployeeForm from './components/Employee'
+import DataChangeForm from './components/DeleteUser'
+import UpdateManager from './components/UpdateManager'
+import UploadSchedule from './components/UploadSchedule'
 
 const AdminPage = () => {
     return (
@@ -14,6 +16,16 @@ const AdminPage = () => {
                 </Section>
                 <Section>
                     <DataChangeForm />
+                </Section>
+                <Section>
+                    <UpdateManager />
+                </Section>
+            </SectionGroup>
+            <SectionGroup>
+                <Section>
+                    <UploadSchedule />
+                </Section>
+                <Section>
                 </Section>
                 <Section>
                 </Section>

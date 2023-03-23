@@ -6,6 +6,8 @@ const ItemController = express.Router();
 
 ItemController.get("/departments", itemService.getDepartments);
 ItemController.get("/userIds", itemService.getUserIds);
+ItemController.get("/leavetypes", itemService.getLeaveTypes);
+ItemController.get("/supervisor", itemService.getDpmSupervisor);
 
 
 export default ItemController;

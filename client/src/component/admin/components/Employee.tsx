@@ -4,6 +4,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useForm } from 'antd/es/form/Form';
 
+//新增使用者表單
 const EmployeeForm = () => {
 
     const layout = {
@@ -26,8 +27,8 @@ const EmployeeForm = () => {
             work_type_id: '1-1',
             isAdmin: false
         };
-        console.log(account);
-        console.log(employee);
+        // console.log(account);
+        // console.log(employee);
 
         await Promise.all([
             axios.post('http://localhost:5000/auth/register', account)
@@ -35,7 +36,7 @@ const EmployeeForm = () => {
                     console.log(response.data)
                 })
                 .catch(error => {
-                    console.error('Error post account:', error.response.data.error);
+                    console.error('Error post account:', error.response.data);
                 }),
             axios.post('http://localhost:5000/user/', employee)
                 .then(response => {

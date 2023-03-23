@@ -10,17 +10,24 @@ const catchError = (handler) => async (req, res, next) => {
 };
 
 const updateUser = catchError(async (req, res) => {
-
     const id = req.params.id;
     const body = req.body;
-    const updatedUser = await userRepository.updateUser(id, body);
-    res.json(updatedUser);
+    const userExisted = await userRepository.getUserById(id);
+    if (!userExisted) { res.status(400).json({ error: "查無使用者資料" }) }
+    else {
+        const updatedUser = await userRepository.updateUser(id, body);
+        res.json(updatedUser);
+    }
 });
 
 const createUser = catchError(async (req, res) => {
     const body = req.body;
-    const newUser = await userRepository.createUser(body);
-    res.json(newUser);
+    const userExisted = await userRepository.getUserById(body.employee_id);
+    if (userExisted) { res.status(400).json({ error: "使用者已存在" }) }
+    else {
+        const newUser = await userRepository.createUser(body);
+        res.json(newUser);
+    }
 });
 
 const deleteUser = catchError(async (req, res) => {

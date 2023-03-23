@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import leaveRepository from "./Leave_repository.js";
+import { transporter } from "../../nodemailer.js";
 
 const catchError = (handler) => async (req, res, next) => {
     try {
@@ -20,11 +21,18 @@ const updateLeave = catchError(async (req, res) => {
 
 const createLeave = catchError(async (req, res) => {
     const body = req.body;
-    console.log(body);
     body.start_time = Sequelize.literal(`Cast('${body.start_time}' as datetime)`);
     body.end_time = Sequelize.literal(`Cast('${body.end_time}' as datetime)`);
-    console.log(body);
     const newLeave = await leaveRepository.createLeave(body);
+    // 取得對應的部門主管
+    const supervisorEmail = await leaveRepository.getSupervisorEmailById(newLeave.dataValues.employee_id);
+    console.log(supervisorEmail);
+    await transporter.sendMail({
+        from: 'timlin@dli-memory.com.tw', // 申請人
+        to: 'timlin@dli-memory.com.tw', // 部門主管
+        subject: '請假申請(自動發信)', // Subject line
+        text: supervisorEmail, // plain text body
+    });
     res.json(newLeave);
 });
 

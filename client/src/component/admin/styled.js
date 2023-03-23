@@ -24,14 +24,15 @@ export const ColumnContainer = styled.div`
   height: 200px;
 `
 export const SectionGroup = styled.div`
+  border: 1px solid red;
   display: flex;
   justify-content: space-between;
-  padding: 0 12.5%;
-  border: 1px solid green;
+  padding: 0 10%;
 `;
 export const Section = styled.div`
+  border: 1px solid blue;
+  display: flex;
+  width: 30%;
   padding: 0 2.5%;
-  width: 40%;
   margin: 0 1%;
-  border: 1px solid #ccc;
 `;
