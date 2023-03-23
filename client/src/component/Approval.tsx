@@ -6,7 +6,7 @@ import moment from 'moment';
 
 interface DataType {
     key: React.Key;
-    id: string;
+    seq: string;
     employee_id: string;
     employee: {
         name: string;
@@ -35,12 +35,12 @@ const Approval = () => {
         {
             title: '姓名',
             width: 75,
-            dataIndex: 'employee',
+            dataIndex: 'employee_data',
             key: 'employee',
             fixed: 'left',
             align: 'center',
-            render: (employee) => {
-                return employee.name;
+            render: (employee_data) => {
+                return employee_data.name;
             },
         }
         ,
@@ -109,8 +109,8 @@ const Approval = () => {
         },
         {
             title: '最後更新時間',
-            dataIndex: 'last_update_time',
-            key: 'last_update_time',
+            dataIndex: 'permit_time',
+            key: 'permit_time',
             fixed: 'right',
             width: 100,
             align: 'center',
@@ -134,7 +134,7 @@ const Approval = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/leaves/filter?dpm=' + 'PTS002');
+            const response = await axios.get('http://localhost:5000/leave/filter?dpm=' + 'ITS001');
             const result = response.data || []; // 如果 response.data 是 undefined 就設為空陣列
             setData(result);
         } catch (error) {
@@ -144,19 +144,19 @@ const Approval = () => {
 
     const handlePermitClick = async (record: DataType) => {
         const updatedRecord = record.permit == true ?
-            { id: record.id, permit: false, last_update_time: moment().format('yyyy-MM-DD HH:mm') } :
-            { id: record.id, permit: true, last_update_time: moment().format('yyyy-MM-DD HH:mm') };
-
-
-        try {
-            const response = await axios.put('http://localhost:5000/leaves/', updatedRecord);
-            if (response.status === 200) {
-                info();
-                await fetchData();
-            }
-        } catch (error) {
-            console.log("error updating permission:");
-        }
+            { seq: record.seq, permit: false, permit_time: moment().format('yyyy-MM-DD HH:mm') } :
+            { seq: record.seq, permit: true, permit_time: moment().format('yyyy-MM-DD HH:mm') };
+        // console.log(updatedRecord);
+        await axios.put('http://localhost:5000/leave/', updatedRecord)
+            .then(response => {
+                if (response.status === 200) {
+                    info();
+                    fetchData();
+                }
+            })
+            .catch(error => {
+                console.error('Error update record:', error.response.data);
+            })
     };
 
     return (

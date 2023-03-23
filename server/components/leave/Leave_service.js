@@ -13,8 +13,8 @@ const catchError = (handler) => async (req, res, next) => {
 
 const updateLeave = catchError(async (req, res) => {
     const body = req.body;
-    body.start_time = Sequelize.literal(`Cast('${body.start_time}' as datetime)`);
-    body.end_time = Sequelize.literal(`Cast('${body.end_time}' as datetime)`);
+    body.permit_time = Sequelize.literal(`Cast('${body.permit_time}' as datetime)`);
+
     const updatedLeave = await leaveRepository.updateLeave(body.seq, body);
     res.json(updatedLeave);
 });
@@ -23,6 +23,7 @@ const createLeave = catchError(async (req, res) => {
     const body = req.body;
     body.start_time = Sequelize.literal(`Cast('${body.start_time}' as datetime)`);
     body.end_time = Sequelize.literal(`Cast('${body.end_time}' as datetime)`);
+    body.create_time = Sequelize.literal(`Cast('${body.create_time}' as datetime)`);
     const newLeave = await leaveRepository.createLeave(body);
     // 取得對應的部門主管
     const supervisorEmail = await leaveRepository.getSupervisorEmailById(newLeave.dataValues.employee_id);

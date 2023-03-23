@@ -53,7 +53,7 @@ const DepartmentModal: React.FC<DepartmentModalProps> = ({ form }) => {
       </div>
       {isModalVisible &&
         <Modal title="部門" open={true} footer={null}>
-          <div style={{ maxHeight: '80vh', overflowY: 'auto' }}>
+          <div style={{ maxHeight: '50vh', overflowY: 'auto' }}>
             {
               renderDepartmentButtons()
             }

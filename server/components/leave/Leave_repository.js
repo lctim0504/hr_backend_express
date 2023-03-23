@@ -13,11 +13,12 @@ const getDpmLeave = async (dpm) => {
             {
                 model: Employee,
                 as: 'employee_data',
-                attributes: ['name', 'department_id'] // 只查employee的name
+                attributes: ['name', 'department_id'],
             }
         ]
     });
 };
+
 
 const getAllLeaves = async () => {
     return LeaveRecord.findAll();

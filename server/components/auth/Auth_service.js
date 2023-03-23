@@ -55,4 +55,9 @@ const getAuth = catchError(async (req, res) => {
         .status(200).json(userData)
 });
 
-export default { getAuth, createAuth };
+const deleteAccount = catchError(async (req, res) => {
+    const id = req.params.id;
+    await authRepository.deleteAccount(id);
+    res.json("用戶成功刪除");
+});
+export default { getAuth, createAuth, deleteAccount };

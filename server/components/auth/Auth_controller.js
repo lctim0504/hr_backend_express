@@ -5,5 +5,6 @@ const AuthController = express.Router();
 
 AuthController.post("/login", AuthService.getAuth);
 AuthController.post("/register", AuthService.createAuth);
+AuthController.delete("/:id", AuthService.deleteAccount);
 
 export default AuthController;

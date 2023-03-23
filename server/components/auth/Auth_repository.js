@@ -10,10 +10,11 @@ const createAuth = async (userData) => {
 const checkId = async (account) => {
     return await Account.findOne({ where: { account } });
 };
+
 const checkPassword = async (account, password) => {
-    5
     return await Account.findOne({ where: { account, password } });
 };
+
 const getUserData = async (employee_id) => {
     const employee = await Employee.findOne({
         where: { employee_id },
@@ -26,7 +27,7 @@ const getUserData = async (employee_id) => {
             {
                 model: Department,
                 as: 'department',
-                attributes: ['name']
+                attributes: ['department_id']
             }
         ]
     });
@@ -34,8 +35,12 @@ const getUserData = async (employee_id) => {
         employee_id: employee.employee_id,
         name: employee.name,
         work_type: employee.work_type.name,
-        department: employee.department.name,
+        department_id: employee.department.department_id,
     };
 };
 
-export default { checkId, checkPassword, createAuth, getUserData };
+const deleteAccount = async (account) => {
+    return Account.destroy({ where: { account } });
+};
+
+export default { checkId, checkPassword, createAuth, getUserData, deleteAccount };

@@ -1,4 +1,4 @@
-import { Button, Form, Input, Card } from 'antd'
+import { Button, Form, Input, Card, Checkbox } from 'antd'
 
 
 const DataChangeForm = () => {
@@ -17,7 +17,7 @@ const DataChangeForm = () => {
 
   return (
     <div>
-      <Card title="刪除使用者" bordered={false} style={{ width: 300 }}>
+      <Card title="刪除使用者帳密" bordered={false} style={{ width: 300 }}>
         <Form
           {...layout}
           name="nest-messages"
@@ -29,6 +29,7 @@ const DataChangeForm = () => {
             rules={[{ required: true }]}
           >
             <Input />
+            <Checkbox>同時刪除員工資料</Checkbox>
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 8 }}>
             <Button type="primary" htmlType="submit">
