@@ -86,6 +86,8 @@ app.use("/schedule", ScheduleController)
 app.use("/item", ItemController)
 app.use("/export", ExportController)
 
+export default app
+
 
 
 
