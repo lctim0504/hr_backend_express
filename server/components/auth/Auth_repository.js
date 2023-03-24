@@ -31,7 +31,7 @@ const getUserData = async (employee_id) => {
             }
         ]
     });
-    return {
+    return employee == null ? null : {
         employee_id: employee.employee_id,
         name: employee.name,
         work_type: employee.work_type.name,

@@ -3,7 +3,26 @@ export const registerData = {
     password: 'password123'
 }
 export const loginData = {
-    account: 'test123',
-    password: 'password123'
+    account: '1110010',
+    password: '1110010'
 }
-export const test_registered_id = 'test123'; // 假設存在一個帳號為 test123 的帳戶
+export const incorrect_account = {
+    account: '111001000',
+    password: '1110010'
+}
+export const incorrect_password = {
+    account: 'test123',
+    password: 'password12345'
+}
+export const login_missing_data = {
+    account: 'test123',
+}
+export const register_missing_data = {
+    account: 'test123',
+}
+export const wrong_data_type = {
+    account: '1110010',
+    password: 1110010
+}
+
+export const registered_test_id = 'test123'; // 假設存在一個帳號為 test123 的帳戶

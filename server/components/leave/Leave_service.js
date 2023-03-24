@@ -54,10 +54,15 @@ const getAllLeaves = catchError(async (req, res) => {
     res.json(getLeaves);
 });
 
-const getDpmLeave = catchError(async (req, res) => {
-    const dpm = req.query.dpm;
-    const getDpmLeave = await leaveRepository.getDpmLeave(dpm);
-    res.json(getDpmLeave)
+const getFilterLeave = catchError(async (req, res) => {
+    const params = {
+        department_id: req.query.department_id,
+        employee_id: req.query.employee_id,
+        leave_type_id: req.query.leave_type_id,
+    };
+    console.log(params);
+    const getFilterLeave = await leaveRepository.getFilterLeave(params);
+    res.json(getFilterLeave)
 });
 
-export default { updateLeave, deleteLeave, getAllLeaves, getLeave, createLeave, getDpmLeave };
+export default { updateLeave, deleteLeave, getAllLeaves, getLeave, createLeave, getFilterLeave };

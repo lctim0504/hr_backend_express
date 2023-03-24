@@ -1,21 +1,36 @@
 import LeaveRecord from "../../model/LeaveRecord_model.js";
 import Employee from "../../model/Employee_model.js";
 import Department from "../../model/Department_model.js";
+import LeaveType from "../../model/LeaveType_model.js";
 
 const createLeave = async (data) => {
     return LeaveRecord.create(data);
 };
 
-const getDpmLeave = async (dpm) => {
+const getFilterLeave = async ({ department_id, employee_id, leave_type_id }) => {
+    const where = {};
+
+    if (department_id) {
+        where['$department_id$'] = department_id;
+    }
+
+    if (employee_id) {
+        where['$employee_data.employee_id$'] = employee_id;
+    }
+
+    if (leave_type_id) {
+        where['leave_type_id'] = leave_type_id;
+    }
+
     return LeaveRecord.findAll({
-        where: { '$employee_data.department_id$': dpm },
+        where,
         include: [
             {
                 model: Employee,
                 as: 'employee_data',
                 attributes: ['name', 'department_id'],
-            }
-        ]
+            },
+        ],
     });
 };
 
@@ -55,4 +70,4 @@ const deleteLeave = async (seq) => {
     return LeaveRecord.destroy({ where: { seq } });
 };
 
-export default { getAllLeaves, getLeaveById, createLeave, updateLeave, deleteLeave, getDpmLeave, getSupervisorEmailById };
+export default { getAllLeaves, getLeaveById, createLeave, updateLeave, deleteLeave, getFilterLeave, getSupervisorEmailById };

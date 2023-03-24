@@ -72,14 +72,14 @@ import cookieParser from "cookie-parser"
 app.use(cookieParser()) 
 
 //RouteControllers
-import UserContoller from "./components/user/User_controller.js"
+import UserController from "./components/user/User_controller.js"
 import LeaveController from "./components/leave/Leave_controller.js"
 import AuthController from "./components/auth/Auth_controller.js"
 import ScheduleController from "./components/schedule/Schedule_controller.js"
 import ItemController from "./components/item/Item_controller.js"
 import ExportController from "./components/export/Export_controller.js"
 app.use(express.json())
-app.use("/user", UserContoller)
+app.use("/user", UserController)
 app.use("/leave", LeaveController)
 app.use("/auth", AuthController)
 app.use("/schedule", ScheduleController)

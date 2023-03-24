@@ -2,12 +2,14 @@ import express from "express";
 import userService from "./User_service.js";
 import { isAdmin, isUser } from "../../JWT_token.js";
 
-const UserContoller = express.Router();
+const UserController = express.Router();
 
-UserContoller.get("/", userService.getAllUsers);
-UserContoller.post("/", userService.createUser);
-UserContoller.get("/:id", userService.getUser);
-UserContoller.put("/:id", userService.updateUser);
-UserContoller.delete("/:id", userService.deleteUser);
+UserController.get("/leavequota/:id", userService.getLeavequota);
 
-export default UserContoller;
+UserController.get("/", userService.getAllUsers);
+UserController.post("/", userService.createUser);
+UserController.get("/:id", userService.getUser);
+UserController.put("/:id", userService.updateUser);
+UserController.delete("/:id", userService.deleteUser);
+
+export default UserController;

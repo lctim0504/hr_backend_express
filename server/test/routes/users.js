@@ -7,7 +7,7 @@ import { create_user_data, errorformat_user_data, impossible_id, missing_user_da
 describe('User routes', function () {
     // 定義測試用例
     // GET /user
-    it('should return a list of all users', function (done) {
+    it('取得員工列表', function (done) {
         // 使用 supertest 發送 HTTP GET 請求到 /user 路由
         request(app)
             .get('/user')
@@ -20,7 +20,7 @@ describe('User routes', function () {
             });
     });
     // POST /user
-    it('should create a new user', function (done) {
+    it('創建員工資料', function (done) {
         request(app)
             .post('/user')
             .send(create_user_data)
@@ -33,7 +33,7 @@ describe('User routes', function () {
             });
     });
     // GET /user/:id
-    it('should return a user by ID', function (done) {
+    it('ID取得員工資料', function (done) {
         request(app)
             .get(`/user/${test_user_id}`)
             .expect('Content-Type', /json/)
@@ -46,7 +46,7 @@ describe('User routes', function () {
             });
     });
     // PUT /user/:id
-    it('should update a user by ID', function (done) {
+    it('ID更新員工資料', function (done) {
         request(app)
             .put(`/user/${test_user_id}`)
             .send(update_user_data)
@@ -61,7 +61,7 @@ describe('User routes', function () {
             });
     });
     // Delete user/:id
-    it('should delete a user by ID', function (done) {
+    it('ID刪除員工資料', function (done) {
         request(app)
             .delete(`/user/${test_user_id}`)
             .expect(204)
@@ -71,20 +71,20 @@ describe('User routes', function () {
             });
     });
     // GET /user/:id 請求資源不存在
-    it('should return 404 if the user does not exist', function (done) {
+    it('員工不存在', function (done) {
         request(app)
             .get(`/user/${impossible_id}`)
             .expect(404, done);
     });
     // POST /user 請求參數缺失
-    it('should return 400 if some required parameters are missing', function (done) {
+    it('資料不完整', function (done) {
         request(app)
             .post('/user')
             .send(missing_user_data)
             .expect(400, done);
     });
     // POST /user 請求參數格式不符
-    it('should return 400 if some parameters are in wrong format', function (done) {
+    it('資料型態不符', function (done) {
         request(app)
             .post('/user')
             .send(errorformat_user_data)
