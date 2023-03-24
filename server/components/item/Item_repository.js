@@ -22,12 +22,7 @@ const getUserIds = async () => {
 };
 
 const getLeaveTypes = async () => {
-    const result = await LeaveType.findAll({
-        attributes: ['name'],
-    });
-    return result.map((item) => ({
-        leave_type: item.name,
-    }));
+    return await LeaveType.findAll()
 };
 
 const getDpmSupervisor = async (dpm) => {

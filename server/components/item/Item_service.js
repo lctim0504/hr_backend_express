@@ -25,7 +25,7 @@ const getLeaveTypes = catchError(async (req, res) => {
 });
 
 const getDpmSupervisor = catchError(async (req, res) => {
-    const dpm = req.query.dpm;
+    const dpm = req.params.dpm;
     const result = await itemRepository.getDpmSupervisor(dpm);
     res.json(result);
 });

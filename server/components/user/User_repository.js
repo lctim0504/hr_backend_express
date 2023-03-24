@@ -1,24 +1,25 @@
-import Account from "../../model/Account_model.js";
 import Employee from "../../model/Employee_model.js";
 
 const getAllUsers = async () => {
-    return Employee.findAll();
+    return await Employee.findAll();
 };
 
 const getUserById = async (employee_id) => {
-    return Employee.findByPk(employee_id);
+    return await Employee.findByPk(employee_id);
 };
 
 const createUser = async (userData) => {
-    return Employee.create(userData);
+    return await Employee.create(userData);
 };
 
 const updateUser = async (employee_id, userData) => {
-    return Employee.update(userData, { where: { employee_id } });
+    const result = await Employee.update(userData, { where: { employee_id }, returning: true });
+    return result[1][0];
 };
 
+
 const deleteUser = async (employee_id) => {
-    return Employee.destroy({ where: { employee_id } });
+    return await Employee.destroy({ where: { employee_id } });
 };
 
 export default { getAllUsers, getUserById, createUser, updateUser, deleteUser };

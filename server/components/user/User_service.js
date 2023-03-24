@@ -1,50 +1,58 @@
+import { catchError } from "../../common/catchError.js";
+import { employeeSchema, postEmployeeSchema } from "../../schema/Employee_schema.js";
 import userRepository from "./User_repository.js";
 
-const catchError = (handler) => async (req, res, next) => {
-    try {
-        await handler(req, res, next);
-    } catch (error) {
-        console.log("Error: " + error);
-        res.status(500).json({ error: "Something went wrong" });
+const getUser = catchError(async (req, res) => {
+    const id = req.params.id;
+    const getUser = await userRepository.getUserById(id);
+    if (getUser == null) {
+        res.status(404).send()
+    } else {
+        res.status(200).json(getUser);
     }
-};
+});
+
+const getAllUsers = catchError(async (req, res) => {
+    const getUsers = await userRepository.getAllUsers();
+    res.status(200).json(getUsers);
+});
 
 const updateUser = catchError(async (req, res) => {
     const id = req.params.id;
-    const body = req.body;
+    const { employee_id, ...rest } = req.body; // 從body中取出employee_id和其他資料
+    const body = await postEmployeeSchema.validateAsync(rest);
+
     const userExisted = await userRepository.getUserById(id);
-    if (!userExisted) { res.status(400).json({ error: "查無使用者資料" }) }
+    if (!userExisted) {
+        res.status(400).json({ error: "查無使用者資料" })
+    }
     else {
         const updatedUser = await userRepository.updateUser(id, body);
-        res.json(updatedUser);
+        res.status(200).json(updatedUser);
     }
 });
 
 const createUser = catchError(async (req, res) => {
-    const body = req.body;
+    const body = await employeeSchema.validateAsync(req.body);
     const userExisted = await userRepository.getUserById(body.employee_id);
-    if (userExisted) { res.status(400).json({ error: "使用者已存在" }) }
+
+    if (userExisted) {
+        res.status(400).json({ error: "使用者已存在" })
+    }
     else {
         const newUser = await userRepository.createUser(body);
-        res.json(newUser);
+        res.status(201).json(newUser);
     }
 });
 
 const deleteUser = catchError(async (req, res) => {
     const id = req.params.id;
-    await userRepository.deleteUser(id);
-    res.json("用戶成功刪除");
-});
-
-const getUser = catchError(async (req, res) => {
-    const id = req.params.id;
-    const getUser = await userRepository.getUserById(id);
-    res.json(getUser);
-});
-
-const getAllUsers = catchError(async (req, res) => {
-    const getUsers = await userRepository.getAllUsers();
-    res.json(getUsers);
+    const success = await userRepository.deleteUser(id);
+    if (success) {
+        res.sendStatus(204);
+    } else {
+        res.status(400).json({ error: "查無使用者資料" });
+    }
 });
 
 export default { updateUser, deleteUser, getAllUsers, getUser, createUser };
