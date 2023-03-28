@@ -27,7 +27,7 @@ const getUserData = async (employee_id) => {
             {
                 model: Department,
                 as: 'department',
-                attributes: ['department_id']
+                attributes: ['id']
             }
         ]
     });

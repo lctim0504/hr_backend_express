@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import sequelize from "../Database.js";
 
 const Department = sequelize.define('Department', {
-    department_id: {
+    id: {
         type: DataTypes.STRING(50),
         primaryKey: true,
         allowNull: false

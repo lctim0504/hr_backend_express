@@ -4,8 +4,6 @@ import { isAdmin, isUser } from "../../JWT_token.js";
 
 const UserController = express.Router();
 
-UserController.get("/leavequota/:id", userService.getLeavequota);
-
 UserController.get("/", userService.getAllUsers);
 UserController.post("/", userService.createUser);
 UserController.get("/:id", userService.getUser);

@@ -78,6 +78,8 @@ import AuthController from "./components/auth/Auth_controller.js"
 import ScheduleController from "./components/schedule/Schedule_controller.js"
 import ItemController from "./components/item/Item_controller.js"
 import ExportController from "./components/export/Export_controller.js"
+import QuotaController from "./components/quota/Quota_controller.js"
+
 app.use(express.json())
 app.use("/user", UserController)
 app.use("/leave", LeaveController)
@@ -85,6 +87,7 @@ app.use("/auth", AuthController)
 app.use("/schedule", ScheduleController)
 app.use("/item", ItemController)
 app.use("/export", ExportController)
+app.use("/quota", QuotaController)
 
 export default app
 

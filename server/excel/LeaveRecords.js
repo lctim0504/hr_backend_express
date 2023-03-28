@@ -14,11 +14,11 @@ export const LeaveRecords = async (leaveRecords, res) => {
         worksheet.getCell(`A${i}`).value = record.employee_id;
         worksheet.getCell(`B${i}`).value = record.name;
         worksheet.getCell(`C${i}`).value = record.leave_type_id;
-        worksheet.getCell(`D${i}`).value = new Date(record.start_time).toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' });
-        worksheet.getCell(`E${i}`).value = new Date(record.start_time).toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' });
-        worksheet.getCell(`F${i}`).value = new Date(record.start_time).toLocaleTimeString('zh-TW', { timeZone: 'Asia/Taipei' });
-        worksheet.getCell(`G${i}`).value = new Date(record.end_time).toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' });
-        worksheet.getCell(`H${i}`).value = new Date(record.end_time).toLocaleTimeString('zh-TW', { timeZone: 'Asia/Taipei' });
+        worksheet.getCell(`D${i}`).value = new Date(record.start_time);
+        worksheet.getCell(`E${i}`).value = new Date(record.start_time);
+        worksheet.getCell(`F${i}`).value = new Date(record.start_time);
+        worksheet.getCell(`G${i}`).value = new Date(record.end_time);
+        worksheet.getCell(`H${i}`).value = new Date(record.end_time);
         worksheet.getCell(`I${i}`).value = record.hours;
         worksheet.getCell(`J${i}`).value = record.reason;
         i++;

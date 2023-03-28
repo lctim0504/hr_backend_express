@@ -3,13 +3,9 @@ import Employee from "../../model/Employee_model.js";
 import LeaveType from "../../model/LeaveType_model.js";
 
 const getDepartments = async () => {
-    const departments = await Department.findAll({
-        attributes: ['department_id', 'name'],
+    return await Department.findAll({
+        attributes: ['id', 'name'],
     });
-    return departments.map((item) => ({
-        department_id: item.department_id,
-        name: item.name,
-    }));
 };
 
 const getUserIds = async () => {
@@ -22,12 +18,14 @@ const getUserIds = async () => {
 };
 
 const getLeaveTypes = async () => {
-    return await LeaveType.findAll()
+    return await LeaveType.findAll({
+        attributes: ['id', 'name'],
+    })
 };
 
-const getDpmSupervisor = async (dpm) => {
+const getDpmSupervisor = async (id) => {
     let employeeId = await Department.findOne({
-        where: { department_id: dpm }
+        where: { id }
     });
     if (!employeeId) return { name: null };
     employeeId = employeeId.dataValues.supervisor_id;

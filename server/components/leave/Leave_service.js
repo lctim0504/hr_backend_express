@@ -21,13 +21,16 @@ const updateLeave = catchError(async (req, res) => {
 
 const createLeave = catchError(async (req, res) => {
     const body = req.body;
+    const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
     body.start_time = Sequelize.literal(`Cast('${body.start_time}' as datetime)`);
     body.end_time = Sequelize.literal(`Cast('${body.end_time}' as datetime)`);
-    body.create_time = Sequelize.literal(`Cast('${body.create_time}' as datetime)`);
+    body.create_time = Sequelize.literal(`Cast('${now}' as datetime)`);
+    
     const newLeave = await leaveRepository.createLeave(body);
     // 取得對應的部門主管
     const supervisorEmail = await leaveRepository.getSupervisorEmailById(newLeave.dataValues.employee_id);
-    console.log(supervisorEmail);
+    //console.log(supervisorEmail);
     await transporter.sendMail({
         from: 'timlin@dli-memory.com.tw', // 申請人
         to: 'timlin@dli-memory.com.tw', // 部門主管
@@ -38,8 +41,8 @@ const createLeave = catchError(async (req, res) => {
 });
 
 const deleteLeave = catchError(async (req, res) => {
-    const id = req.params.id;
-    await leaveRepository.deleteLeave(id);
+    const seq = req.params.id;
+    await leaveRepository.deleteLeave(seq);
     res.json("用戶成功刪除");
 });
 
@@ -60,7 +63,7 @@ const getFilterLeave = catchError(async (req, res) => {
         employee_id: req.query.employee_id,
         leave_type_id: req.query.leave_type_id,
     };
-    console.log(params);
+    //console.log(params);
     const getFilterLeave = await leaveRepository.getFilterLeave(params);
     res.json(getFilterLeave)
 });

@@ -34,7 +34,10 @@ const LeaveRecord = sequelize.define('LeaveRecord', {
   sub_name: {
     type: DataTypes.STRING,
   },
-  permit: {
+  hr_permit: {
+    type: DataTypes.BOOLEAN,
+  },
+  sv_permit: {
     type: DataTypes.BOOLEAN,
   },
   permit_time: {
@@ -45,7 +48,7 @@ const LeaveRecord = sequelize.define('LeaveRecord', {
   },
 }, {
   dialectOptions: {
-    collate: 'Chinese_Taiwan_Stroke_CI_AS'
+    collate: 'Chinese_Taiwan_Stroke_CI_AS',
   },
   tableName: 'leave_records',
   timestamps: false
