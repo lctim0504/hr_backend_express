@@ -24,10 +24,16 @@ const getLeaveTypes = catchError(async (req, res) => {
     res.json(result);
 });
 
+const getLeaveTypeDetail = catchError(async (req, res) => {
+    const id = req.params.id;
+    const result = await itemRepository.getLeaveTypeDetail(id);
+    res.json(result);
+});
+
 const getDpmSupervisor = catchError(async (req, res) => {
     const dpm = req.params.dpm;
     const result = await itemRepository.getDpmSupervisor(dpm);
     res.json(result);
 });
 
-export default { getDepartments, getUserIds, getLeaveTypes, getDpmSupervisor };
+export default { getLeaveTypeDetail, getDepartments, getUserIds, getLeaveTypes, getDpmSupervisor };

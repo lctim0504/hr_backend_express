@@ -35,7 +35,7 @@ const getUserData = async (employee_id) => {
         employee_id: employee.employee_id,
         name: employee.name,
         work_type: employee.work_type.name,
-        department_id: employee.department.department_id,
+        department_id: employee.department.id,
     };
 };
 

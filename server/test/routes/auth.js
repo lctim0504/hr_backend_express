@@ -53,7 +53,11 @@ describe('-----------Auth routes-----------\r\n', function () {
                 .end(function (err, res) {
                     if (err) return done(err);
                     // 驗證回傳的數據是否為用戶資料對象
-                    expect(res.body.employee_id).to.equal(loginData.account);
+                    expect(res.body).to.have.property('employee_id', loginData.account);
+                    expect(res.body).to.have.property('name');
+                    expect(res.body).to.have.property('work_type');
+                    expect(res.body).to.have.property('department_id');
+
                     // 驗證回傳的 Cookie 中是否包含 JWT_token
                     expect(res.header['set-cookie'][0]).to.include('JWT_token');
                     done();

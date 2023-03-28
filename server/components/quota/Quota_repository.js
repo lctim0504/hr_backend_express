@@ -1,25 +1,25 @@
 import Employee from "../../model/Employee_model.js";
 import Department from "../../model/Department_model.js";
-import LeaveQuota from "../../model/LeaveQuota_model.js";
 import LeaveType from "../../model/LeaveType_model.js";
 import LeaveRecord from "../../model/LeaveRecord_model.js";
 import { Op } from "sequelize";
 import sequelize from "../../Database.js";
+import EmployeeLeaveQuota from "../../model/LeaveQuota_model.js";
 
 const createQuota = async (data) => {
     console.log(data);
-    return LeaveQuota.create(data);
+    return EmployeeLeaveQuota.create(data);
 };
 const getLeaveQuota = async () => {
     return LeaveType.findAll({
         attributes: ['id', 'quota', 'gender']
     });
 };
-
 const getIdLeaveQuota = async (employee_id) => {
-    return await LeaveQuota.findByPk(employee_id);
+    return await EmployeeLeaveQuota.findByPk(employee_id);
 };
 const getLeaveUsed = async (employee_id, date1, date2) => {
+    //console.log({employee_id, date1, date2});
     try {
         const result = await LeaveRecord.findAll({
             where: {
@@ -35,10 +35,10 @@ const getLeaveUsed = async (employee_id, date1, date2) => {
             group: ['leave_type_id'],
             raw: true, // 取得單純的 JSON 物件
         });
-        console.log(result);
+        //console.log(result);
         return result;
     } catch (err) {
-        console.error(err);
+        //console.error(err);
     }
 };
 

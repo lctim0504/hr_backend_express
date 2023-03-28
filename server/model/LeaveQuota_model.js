@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../Database.js";
 
-const LeaveQuota = sequelize.define('leave_quota', {
+const EmployeeLeaveQuota = sequelize.define('leave_quota', {
   employee_id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -84,4 +84,4 @@ const LeaveQuota = sequelize.define('leave_quota', {
   timestamps: false,
 });
 
-export default LeaveQuota;
+export default EmployeeLeaveQuota;

@@ -19,10 +19,11 @@ const updateQuota = catchError(async (req, res) => {
     // res.json(updatedQuota);
 });
 
-const createQuota = catchError(async (req, res) => {
+const createUserQuota = catchError(async (req, res) => {
     const body = req.body;
 
-    const initQuota = await quotaRepository.getLeaveQuota();//抓取初始額度
+    //抓取初始額度
+    const initQuota = await quotaRepository.getLeaveQuota();
     const newQuota = {};
     initQuota.forEach(db => {
         if (body.female !== false) {
@@ -33,36 +34,43 @@ const createQuota = catchError(async (req, res) => {
     });
     newQuota.employee_id = body.employee_id;
     newQuota.on_board_date = Sequelize.literal(`Cast('${body.on_board_date}' as datetime)`);
-
+    //創建使用者額度資料
     const newUserQuota = await quotaRepository.createQuota(newQuota);
     res.json(newUserQuota);
 });
 
-const getQuota = catchError(async (req, res) => {
+const getUserRemainQuota = catchError(async (req, res) => {
     const id = req.params.id;
-    //取得初始扣打
-    const leavequota = await quotaRepository.getIdLeaveQuota(id);
-    const date1 = Sequelize.literal(`Cast('${'2022-01-01'}' as datetime)`);
-    const date2 = Sequelize.literal(`Cast('${'2022-12-31'}' as datetime)`);
-    //計算請假時數
-    const leaveUsed = await quotaRepository.getLeaveUsed(id, date1, date2);
-    // console.log(leavequota);
-    // console.log('--------------------------------------');
-    // console.log(leaveUsed);
-    const result = leaveUsed.map(item => {
-        const diff = leavequota[item.leave_type_id.toString()] - item.total_hours;
-        // console.log(leavequota[item.leave_type_id.toString()]);
-        // console.log('--------------------------------------');
-        // console.log(item.total_hours);
-        return { leave_type_id: item.leave_type_id, diff };
-    });
+    //計算id用戶請假剩餘時數
+    const result = await getUserUsedLeave(id);
     return res.status(200).json(result);
 });
 
-const deleteQuota = catchError(async (req, res) => {
-    //     const id = req.params.id;
-    //     await quotaRepository.deleteQuota(id);
-    //     res.json("用戶成功刪除");
+const getUserUsedLeave = async (id) => {
+    //取得請假額度
+    const leavequota = await quotaRepository.getIdLeaveQuota(id);
+    //計算今年已請假時數
+    const today = new Date();
+    const yearStart = new Date(today.getFullYear(), 0, 1).toISOString().slice(0, 19).replace('T', ' ');;
+    const yearEnd = new Date(today.getFullYear(), 11, 31).toISOString().slice(0, 19).replace('T', ' ');;
+    const startOfYear = Sequelize.literal(`Cast('${yearStart}' as datetime)`);
+    const endOfYear = Sequelize.literal(`Cast('${yearEnd}' as datetime)`);
+    const leaveUsed = await quotaRepository.getLeaveUsed(id, startOfYear, endOfYear);
+    //計算今年剩餘時數
+    const result = leaveUsed.map(item => {
+        const remain_hours = leavequota[item.leave_type_id.toString()] - item.total_hours;
+        // console.log(leavequota[item.leave_type_id.toString()]);
+        // console.log('--------------------------------------');
+        // console.log(item.total_hours);
+        return { leave_type_id: item.leave_type_id, remain_hours };
+    });
+    //console.log(result);
+    return result;
+}
+const deleteUserQuota = catchError(async (req, res) => {
+    const id = req.params.id;
+    await quotaRepository.deleteQuota(id);
+    res.json("用戶成功刪除");
 });
 
 // const getQuota = catchError(async (req, res) => {
@@ -87,4 +95,4 @@ const getFilterQuota = catchError(async (req, res) => {
     //     res.json(getFilterQuota)
 });
 
-export default { updateQuota, deleteQuota, getAllQuotas, getQuota, createQuota, getFilterQuota };
+export default { updateQuota, deleteUserQuota, getAllQuotas, getUserRemainQuota, createUserQuota, getFilterQuota };

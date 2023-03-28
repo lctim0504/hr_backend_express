@@ -1,6 +1,7 @@
 import Department from "../../model/Department_model.js";
 import Employee from "../../model/Employee_model.js";
 import LeaveType from "../../model/LeaveType_model.js";
+import WorkTypeDetail from "../../model/WorkTypeDetail_model.js";
 
 const getDepartments = async () => {
     return await Department.findAll({
@@ -22,6 +23,12 @@ const getLeaveTypes = async () => {
         attributes: ['id', 'name'],
     })
 };
+const getLeaveTypeDetail = async (work_type_id) => {
+    return await WorkTypeDetail.findAll({
+        where: { work_type_id, work_type_period_id: 1 },
+        attributes: ['start_time', 'end_time'],
+    })
+};
 
 const getDpmSupervisor = async (id) => {
     let employeeId = await Department.findOne({
@@ -35,5 +42,5 @@ const getDpmSupervisor = async (id) => {
     });
 };
 
-export default { getDepartments, getUserIds, getLeaveTypes, getDpmSupervisor };
+export default { getLeaveTypeDetail, getDepartments, getUserIds, getLeaveTypes, getDpmSupervisor };
 

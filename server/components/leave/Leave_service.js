@@ -31,12 +31,12 @@ const createLeave = catchError(async (req, res) => {
     // 取得對應的部門主管
     const supervisorEmail = await leaveRepository.getSupervisorEmailById(newLeave.dataValues.employee_id);
     //console.log(supervisorEmail);
-    await transporter.sendMail({
-        from: 'timlin@dli-memory.com.tw', // 申請人
-        to: 'timlin@dli-memory.com.tw', // 部門主管
-        subject: '請假申請(自動發信)', // Subject line
-        text: supervisorEmail, // plain text body
-    });
+    // await transporter.sendMail({
+    //     from: 'timlin@dli-memory.com.tw', // 申請人
+    //     to: 'timlin@dli-memory.com.tw', // 部門主管
+    //     subject: '請假申請(自動發信)', // Subject line
+    //     text: supervisorEmail, // plain text body
+    // });
     res.json(newLeave);
 });
 
