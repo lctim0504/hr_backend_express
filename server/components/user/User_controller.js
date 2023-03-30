@@ -4,10 +4,10 @@ import { isAdmin, isUser } from "../../JWT_token.js";
 
 const UserController = express.Router();
 
-UserController.get("/", userService.getAllUsers);
-UserController.post("/", userService.createUser);
-UserController.get("/:id", userService.getUser);
-UserController.put("/:id", userService.updateUser);
-UserController.delete("/:id", userService.deleteUser);
+UserController.get("/", isAdmin, userService.getAllUsers);
+UserController.post("/", isAdmin, userService.createUser);
+UserController.get("/:id", isUser, userService.getUser);
+UserController.put("/:id", isAdmin, userService.updateUser);
+UserController.delete("/:id", isAdmin, userService.deleteUser);
 
 export default UserController;

@@ -7,6 +7,7 @@ export const employeeSchema = Joi.object({
   department_id: Joi.string().required(),
   work_type_id: Joi.string().required(),
   isAdmin: Joi.boolean().required(),
+  isSupervisor: Joi.boolean().required(),
   email: Joi.string().email()
 });
 
@@ -15,6 +16,7 @@ export const postEmployeeSchema = Joi.object({
   department_id: Joi.string().required(),
   work_type_id: Joi.string().required(),
   isAdmin: Joi.boolean().required(),
+  isSupervisor: Joi.boolean().required(),
   email: Joi.string().email()
 });
 

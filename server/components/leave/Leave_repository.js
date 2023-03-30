@@ -2,6 +2,8 @@ import LeaveRecord from "../../model/LeaveRecord_model.js";
 import Employee from "../../model/Employee_model.js";
 import Department from "../../model/Department_model.js";
 import LeaveType from "../../model/LeaveType_model.js";
+import { col, fn } from "sequelize";
+import { timeParser } from "../../common/timeParser.js";
 
 const createLeave = async (data) => {
     return LeaveRecord.create(data);
@@ -36,8 +38,16 @@ const getFilterLeave = async ({ department_id, employee_id, leave_type_id }) => 
 
 
 const getAllLeaves = async () => {
-    return LeaveRecord.findAll();
+    const results = await LeaveRecord.findAll();
+    const formattedResults = results.map(result => ({
+        ...result.dataValues,
+        start_time: timeParser(result.start_time),
+        end_time: timeParser(result.end_time),
+    }));
+    return formattedResults;
 };
+
+
 
 const getLeaveById = async (employee_id) => {
     return LeaveRecord.findAll({ where: { employee_id } });
@@ -65,9 +75,11 @@ const updateLeave = async (seq, data) => {
     const updateResult = await LeaveRecord.update(data, { where: { seq }, returning: true });
     return updateResult[1][0];
 };
+const updateBulkLeave = async (data) => {
 
+};
 const deleteLeave = async (seq) => {
     return LeaveRecord.destroy({ where: { seq } });
 };
 
-export default { getAllLeaves, getLeaveById, createLeave, updateLeave, deleteLeave, getFilterLeave, getSupervisorEmailById };
+export default { getAllLeaves, getLeaveById, createLeave, updateLeave, updateBulkLeave, deleteLeave, getFilterLeave, getSupervisorEmailById };

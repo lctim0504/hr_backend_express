@@ -42,8 +42,14 @@ const getAuth = catchError(async (req, res) => {
     if (userData == null) {
         return res.status(404).json({ error: "無此員工資料" })
     }
+    console.log(userData.employee_id + '' + userData.isAdmin);
     //產生一個專屬於這個user的token並回傳到cookie中 (employee_id, isAdmin是要加密的資料)
-    const token = jwt.sign({ employee_id: userData.employee_id, isAdmin: userData.isAdmin }, process.env.JWT)
+    const token = jwt.sign({
+        employee_id: userData.employee_id,
+        isAdmin: userData.isAdmin,
+        isSupervisor: userData.isAisSupervisordmin
+    }, process.env.JWT)
+    console.log(token);
     res.cookie('JWT_token', token, { httpOnly: true })
         .status(200).json(userData)
 });
@@ -51,6 +57,16 @@ const getAuth = catchError(async (req, res) => {
 const deleteAccount = catchError(async (req, res) => {
     const id = req.params.id;
     await authRepository.deleteAccount(id);
-    res.json("用戶成功刪除");
+    res.status(200).json("用戶成功刪除");
 });
-export default { getAuth, createAuth, deleteAccount };
+const deleteBulkAccount = catchError(async (req, res) => {
+    const body = req.body.ids;
+    console.log(body);
+    //await authRepository.deleteBulkAccount(body);
+    res.status(200).json("用戶成功刪除");
+});
+const getAccount = catchError(async (req, res) => {
+    const result = await authRepository.getAccount();
+    res.status(200).json(result);
+});
+export default { getAuth, createAuth, deleteAccount, getAccount, deleteBulkAccount };

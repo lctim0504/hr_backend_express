@@ -16,7 +16,7 @@ const Login2 = () => {
         axios.get('http://localhost:5000/item/userIds')
             .then(response => {
                 const result = response.data.map((item: { employee_id: any; }) => ({ value: item.employee_id.toString() }))
-                console.log(result)
+                //console.log(result)
                 setIdList(result)
             })
             .catch(error => {
@@ -24,10 +24,12 @@ const Login2 = () => {
             });
     }, []);
 
-    const handleUsernameChange = (value: string) => {
-        setUsername(value);
+    // const handleUsernameChange = (value: string) => {
+    //     setUsername(value);
+    // }
+    const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setUsername(event.target.value);
     }
-
     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
     }
@@ -37,12 +39,18 @@ const Login2 = () => {
     };
 
     const handleClick = () => {
-        axios.post('http://localhost:5000/auth/login', { account, password })
+        axios.post('http://localhost:5000/auth/login', { account, password }, { withCredentials: true })
             .then(response => {
                 if (response.status === 200) {
-                    //navigate('/home');
+                    if (window.history.length > 1) {
+                        navigate(-2);
+                        console.log('yes');
+                    } else {
+                        navigate('/home');
+                        console.log('no');
+                    }
                     setOpen(false)
-                } 
+                }
             })
             .catch((error) => {
                 onFinishFailed();
@@ -76,7 +84,7 @@ const Login2 = () => {
                         name="employee_id"
                         rules={[{ required: true, message: '此為必填欄位' }]}
                     >
-                        <Select
+                        {/* <Select
                             showSearch
                             placeholder="Select your code"
                             optionFilterProp="children"
@@ -86,7 +94,8 @@ const Login2 = () => {
                                 (option?.value ?? "").toLowerCase().includes(input.toLowerCase())
                             }
                             options={idList}
-                        />
+                        /> */}
+                        <Input value={account} onChange={handleUsernameChange} />
                     </Form.Item>
                     <Form.Item
                         label="密碼"

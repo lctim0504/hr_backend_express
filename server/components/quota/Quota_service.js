@@ -11,9 +11,8 @@ const catchError = (handler) => async (req, res, next) => {
     }
 };
 
-const updateQuota = catchError(async (req, res) => {
+const updateUserQuota = catchError(async (req, res) => {
     // const body = req.body;
-    // body.permit_time = Sequelize.literal(`Cast('${body.permit_time}' as datetime)`);
 
     // const updatedQuota = await quotaRepository.updateQuota(body.seq, body);
     // res.json(updatedQuota);
@@ -95,4 +94,4 @@ const getFilterQuota = catchError(async (req, res) => {
     //     res.json(getFilterQuota)
 });
 
-export default { updateQuota, deleteUserQuota, getAllQuotas, getUserRemainQuota, createUserQuota, getFilterQuota };
+export default { updateUserQuota, deleteUserQuota, getAllQuotas, getUserRemainQuota, createUserQuota, getFilterQuota };

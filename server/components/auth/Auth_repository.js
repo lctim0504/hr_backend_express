@@ -1,3 +1,4 @@
+import sequelize from "../../Database.js";
 import Account from "../../model/Account_model.js";
 import Department from "../../model/Department_model.js";
 import Employee from "../../model/Employee_model.js";
@@ -22,7 +23,7 @@ const getUserData = async (employee_id) => {
             {
                 model: WorkType,
                 as: 'work_type',
-                attributes: ['name']
+                attributes: ['id', 'name']
             },
             {
                 model: Department,
@@ -35,7 +36,10 @@ const getUserData = async (employee_id) => {
         employee_id: employee.employee_id,
         name: employee.name,
         work_type: employee.work_type.name,
+        work_type_id: employee.work_type.id,
         department_id: employee.department.id,
+        isAdmin: employee.isAdmin,
+        isSupervisor: employee.isSupervisor,
     };
 };
 
@@ -43,4 +47,26 @@ const deleteAccount = async (account) => {
     return Account.destroy({ where: { account } });
 };
 
-export default { checkId, checkPassword, createAuth, getUserData, deleteAccount };
+const deleteBulkAccount = async (accounts) => {
+    const trade = await sequelize.transaction();
+    try {
+        await Account.destroy({
+            where: {
+                account: accounts
+            },
+            transaction: trade
+        });
+        await trade.commit();
+        // console.log("Delete accounts successfully!");
+    } catch (error) {
+        await trade.rollback();
+        console.error("Delete accounts failed: ", error);
+    }
+}
+
+
+const getAccount = async () => {
+    return Account.findAll();
+};
+
+export default { checkId, checkPassword, createAuth, getUserData, deleteAccount, getAccount, deleteBulkAccount };

@@ -1,36 +1,26 @@
 import { Sequelize } from "sequelize";
 import leaveRepository from "./Leave_repository.js";
 import { transporter } from "../../nodemailer.js";
+import { createLeaveRecordSchema, updateBulkLeaveRecordSchema, updateLeaveRecordSchema } from "../../schema/LeaveRecord_schema.js";
+import { catchError } from "../../common/catchError.js";
+import { timeParser } from "../../common/timeParser.js";
 
-const catchError = (handler) => async (req, res, next) => {
-    try {
-        await handler(req, res, next);
-    } catch (error) {
-        console.log("Error: " + error);
-        res.status(500).json({ error: "Something went wrong" });
-    }
-};
+const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
-const updateLeave = catchError(async (req, res) => {
-    const body = req.body;
-    body.permit_time = Sequelize.literal(`Cast('${body.permit_time}' as datetime)`);
 
-    const updatedLeave = await leaveRepository.updateLeave(body.seq, body);
-    res.json(updatedLeave);
-});
 
 const createLeave = catchError(async (req, res) => {
-    const body = req.body;
-    const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    const body = await createLeaveRecordSchema.validateAsync(req.body);
 
-    body.start_time = Sequelize.literal(`Cast('${body.start_time}' as datetime)`);
-    body.end_time = Sequelize.literal(`Cast('${body.end_time}' as datetime)`);
-    body.create_time = Sequelize.literal(`Cast('${now}' as datetime)`);
-    
+    body.start_time = Sequelize.literal(`Cast('${timeParser(body.start_time)}' as datetime)`);
+    body.end_time = Sequelize.literal(`Cast('${timeParser(body.end_time)}' as datetime)`);
+    body.create_time = Sequelize.literal(`Cast('${timeParser(new Date())}' as datetime)`);
+
+    console.log(body);
     const newLeave = await leaveRepository.createLeave(body);
     // 取得對應的部門主管
     const supervisorEmail = await leaveRepository.getSupervisorEmailById(newLeave.dataValues.employee_id);
-    //console.log(supervisorEmail);
+    console.log(supervisorEmail);
     // await transporter.sendMail({
     //     from: 'timlin@dli-memory.com.tw', // 申請人
     //     to: 'timlin@dli-memory.com.tw', // 部門主管
@@ -67,5 +57,16 @@ const getFilterLeave = catchError(async (req, res) => {
     const getFilterLeave = await leaveRepository.getFilterLeave(params);
     res.json(getFilterLeave)
 });
+const updateLeave = catchError(async (req, res) => {
+    const body = await updateLeaveRecordSchema.validateAsync(req.body);
+    body.permit_time = Sequelize.literal(`Cast('${now}' as datetime)`);
 
-export default { updateLeave, deleteLeave, getAllLeaves, getLeave, createLeave, getFilterLeave };
+    const updatedLeave = await leaveRepository.updateLeave(body.seq, body);
+    res.json(updatedLeave);
+});
+const updateBulkLeave = catchError(async (req, res) => {
+    console.log(req.body.data.ids);
+    //const updatedLeave = await leaveRepository.updateLeave(body);
+    res.json('');
+});
+export default { updateLeave, updateBulkLeave, deleteLeave, getAllLeaves, getLeave, createLeave, getFilterLeave };

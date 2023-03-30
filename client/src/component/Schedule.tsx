@@ -63,7 +63,7 @@ const MySchedule = () => {
     return (
         <>
             <div>
-                <Calendar tileContent={tileContent} />
+                <Calendar tileContent={tileContent} showWeekNumbers />
                 <UploadSchedule />
             </div>
         </>
