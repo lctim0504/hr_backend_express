@@ -4,9 +4,27 @@ import { expect } from 'chai';
 import { incorrect_account, incorrect_password, loginData, login_missing_data, registerData, register_missing_data, registered_test_id, wrong_data_type } from '../datas/auth.js';
 
 describe('-----------Auth routes-----------\r\n', function () {
-    // 定義測試用例
+    // Admin
     // POST /auth/register
     describe('POST /auth/register', function () {
+        let token;
+
+        before(function (done) {
+            // 登入獲取 token
+            request(app)
+              .post('/auth/login')
+              .send({
+                account: 'testuser',
+                password: 'testpassword'
+              })
+              .expect(200)
+              .end(function (err, res) {
+                if (err) return done(err);
+                token = res.body.token; // 將 token 記錄下來供後續測試使用
+                done();
+              });
+          });
+
         it('創建帳號成功', function (done) {
             request(app)
                 .post('/auth/register')
@@ -15,7 +33,6 @@ describe('-----------Auth routes-----------\r\n', function () {
                 .expect(200)
                 .end(function (err, res) {
                     if (err) return done(err);
-                    // 驗證回傳的數據是否為新增的帳號對象
                     expect(res.body.message).to.equal('註冊成功');
                     done();
                 });
