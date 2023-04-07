@@ -1,5 +1,6 @@
 import Joi from 'joi';
 
+//基本欄位
 export const leaveRecordSchema = Joi.object({
   seq: Joi.number().integer(),
   employee_id: Joi.string().required(),
@@ -14,7 +15,7 @@ export const leaveRecordSchema = Joi.object({
   permit_time: Joi.date().allow(null),
   create_time: Joi.date().allow(null),
 });
-
+//創建時的參數
 export const createLeaveRecordSchema = Joi.object({
   employee_id: Joi.string().required(),
   start_time: Joi.date().required(),
@@ -24,13 +25,19 @@ export const createLeaveRecordSchema = Joi.object({
   reason: Joi.string().allow(null, ''),
   sub_name: Joi.string().allow(null, ''),
 });
+//更新時的參數
 export const updateLeaveRecordSchema = Joi.object({
   seq: Joi.number().integer().required(),
   sv_permit: Joi.boolean(),
+  hr_permit: Joi.boolean(),
   permit_time: Joi.date(),
   permit_id: Joi.string().required(),
 });
+//大量更新時的參數 
 export const updateBulkLeaveRecordSchema = Joi.object({
   seq: Joi.number().integer().required(),
   sv_permit: Joi.boolean(),
+  hr_permit: Joi.boolean(),
+  permit_time: Joi.date(),
+  permit_id: Joi.string().required(),
 });

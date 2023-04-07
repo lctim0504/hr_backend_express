@@ -4,11 +4,11 @@ import { isAdmin, isUser } from "../../JWT_token.js";
 
 const ItemController = express.Router();
 
-ItemController.get("/departments", itemService.getDepartments);
-ItemController.get("/userIds", itemService.getUserIds);
-ItemController.get("/leavetypes", itemService.getLeaveTypes);
-ItemController.get("/leavetypes/:id", itemService.getLeaveTypeDetail);
-ItemController.get("/supervisor/:dpm", itemService.getDpmSupervisor);
+ItemController.get("/departments", isUser, itemService.getDepartments);
+ItemController.get("/userIds", isUser, itemService.getUserIds);
+ItemController.get("/leavetypes", isUser, itemService.getLeaveTypes);
+ItemController.get("/leavetypes/:id", isUser, itemService.getLeaveTypeDetail);
+ItemController.get("/supervisor/:dpm", isUser, itemService.getDpmSupervisor);
 
 
 export default ItemController;

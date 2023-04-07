@@ -59,6 +59,9 @@ const Login2 = () => {
 
     const [open, setOpen] = useState(true);
 
+    const handleKeyDown = (event: any) => {
+
+    }
     return (
         <>
             {/* <Button type="primary" onClick={() => setOpen(true)}>
@@ -95,14 +98,14 @@ const Login2 = () => {
                             }
                             options={idList}
                         /> */}
-                        <Input value={account} onChange={handleUsernameChange} />
+                        <Input tabIndex={1} value={account} onKeyDown={handleKeyDown} onChange={handleUsernameChange} />
                     </Form.Item>
                     <Form.Item
                         label="密碼"
                         name="password"
                         rules={[{ required: true, message: '此為必填欄位' }]}
                     >
-                        <Input.Password value={password} onChange={handlePasswordChange} />
+                        <Input.Password tabIndex={1} value={password} onKeyDown={handleKeyDown} onChange={handlePasswordChange} />
                     </Form.Item>
                     {/* <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
                         <Row align="middle">

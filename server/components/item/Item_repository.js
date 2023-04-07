@@ -23,10 +23,11 @@ const getLeaveTypes = async () => {
         attributes: ['id', 'name'],
     })
 };
+
 const getLeaveTypeDetail = async (work_type_id) => {
     return await WorkTypeDetail.findAll({
         where: { work_type_id, work_type_period_id: 1 },
-        attributes: ['start_time', 'end_time'],
+        attributes: ['start_time', 'end_time', 'hours'],
     })
 };
 

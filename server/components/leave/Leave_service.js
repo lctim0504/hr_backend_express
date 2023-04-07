@@ -33,7 +33,7 @@ const createLeave = catchError(async (req, res) => {
 const deleteLeave = catchError(async (req, res) => {
     const seq = req.params.id;
     await leaveRepository.deleteLeave(seq);
-    res.json("用戶成功刪除");
+    res.json("資料成功刪除");
 });
 
 const getLeave = catchError(async (req, res) => {

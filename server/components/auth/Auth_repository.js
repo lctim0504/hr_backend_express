@@ -4,6 +4,10 @@ import Department from "../../model/Department_model.js";
 import Employee from "../../model/Employee_model.js";
 import WorkType from "../../model/WorkType_model.js";
 
+const getAllAccount = async () => {
+    return Account.findAll();
+};
+
 const createAuth = async (userData) => {
     return Account.create(userData);
 };
@@ -65,8 +69,6 @@ const deleteBulkAccount = async (accounts) => {
 }
 
 
-const getAccount = async () => {
-    return Account.findAll();
-};
 
-export default { checkId, checkPassword, createAuth, getUserData, deleteAccount, getAccount, deleteBulkAccount };
+
+export default { checkId, checkPassword, createAuth, getUserData, deleteAccount, getAllAccount, deleteBulkAccount };

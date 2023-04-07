@@ -1,87 +1,52 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../Database.js";
 
-const EmployeeLeaveQuota = sequelize.define('leave_quota', {
-  employee_id: {
+const Leave = sequelize.define('Leave', {
+  id: {
     type: DataTypes.INTEGER,
+    allowNull: false,
     primaryKey: true,
+    autoIncrement: true
+  },
+  employee_id: {
+    type: DataTypes.STRING(10),
     allowNull: false
   },
-  on_board_date: {
+  year: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  leave_type_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  remaining_hours: {
+    type: DataTypes.FLOAT,
+    allowNull: false
+  },
+  total_hours: {
+    type: DataTypes.FLOAT,
+    allowNull: false
+  },
+  leave_start_date: {
+    type: DataTypes.DATEONLY,
+    allowNull: false
+  },
+  leave_end_date: {
+    type: DataTypes.DATEONLY,
+    allowNull: false
+  },
+  last_update_time: {
     type: DataTypes.DATE,
-    allowNull: true
-  },
-  '2': {
-    type: DataTypes.INTEGER,
     allowNull: false
   },
-  '3': {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  '4': {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  '5': {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  '6': {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  '7': {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  '8': {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  '9': {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  '14': {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  '15': {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  '16': {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  '17': {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  '21': {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  '22': {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  '23': {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  '24': {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  remark: {
-    type: DataTypes.TEXT,
-    allowNull: true
-  }}
-  ,{
-  tableName: 'leave_quota',
-  timestamps: false,
+  create_time: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  }
+}, {
+  tableName: 'leave',
+  timestamps: false
 });
 
-export default EmployeeLeaveQuota;
+export default Leave;

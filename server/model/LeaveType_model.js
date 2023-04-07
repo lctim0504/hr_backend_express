@@ -21,7 +21,7 @@ const LeaveType = sequelize.define('LeaveType', {
         allowNull: false,
     },
     gender: {
-        type: DataTypes.STRING(6),
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
 }, {

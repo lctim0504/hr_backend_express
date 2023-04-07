@@ -47,7 +47,7 @@ const getAuth = catchError(async (req, res) => {
     const token = jwt.sign({
         employee_id: userData.employee_id,
         isAdmin: userData.isAdmin,
-        isSupervisor: userData.isAisSupervisordmin
+        isSupervisor: userData.isSupervisor
     }, process.env.JWT)
     console.log(token);
     res.cookie('JWT_token', token, { httpOnly: true })
@@ -65,8 +65,11 @@ const deleteBulkAccount = catchError(async (req, res) => {
     //await authRepository.deleteBulkAccount(body);
     res.status(200).json("用戶成功刪除");
 });
-const getAccount = catchError(async (req, res) => {
-    const result = await authRepository.getAccount();
+const getAllAccount = catchError(async (req, res) => {
+    const result = await authRepository.getAllAccount();
     res.status(200).json(result);
 });
-export default { getAuth, createAuth, deleteAccount, getAccount, deleteBulkAccount };
+
+export default { getAuth, createAuth, deleteAccount, getAllAccount, deleteBulkAccount };
+
+
