@@ -3,28 +3,10 @@ import app from '../../index.js' // 注意，需要使用相對路徑
 import { expect } from 'chai';
 import { incorrect_account, incorrect_password, loginData, login_missing_data, registerData, register_missing_data, registered_test_id, wrong_data_type } from '../datas/auth.js';
 
-describe('-----------Auth routes-----------\r\n', function () {
+describe('-----------Auth2 routes-----------\r\n', function () {
     // Admin
     // POST /auth/register
     describe('POST /auth/register', function () {
-        let token;
-
-        before(function (done) {
-            // 登入獲取 token
-            request(app)
-              .post('/auth/login')
-              .send({
-                account: 'testuser',
-                password: 'testpassword'
-              })
-              .expect(200)
-              .end(function (err, res) {
-                if (err) return done(err);
-                token = res.body.token; // 將 token 記錄下來供後續測試使用
-                done();
-              });
-          });
-
         it('創建帳號成功', function (done) {
             request(app)
                 .post('/auth/register')

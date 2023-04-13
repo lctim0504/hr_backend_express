@@ -4,6 +4,7 @@ import Department from "../../model/Department_model.js";
 import OvertimeType from "../../model/OvertimeType_model.js";
 import { col, fn } from "sequelize";
 import { timeParser } from "../../common/timeParser.js";
+import sequelize from "../../Database.js";
 
 const createOvertime = async (data) => {
     return OvertimeRecord.create(data);
@@ -37,13 +38,7 @@ const getFilterOvertime = async ({ department_id, employee_id, overtime_type_id 
 };
 
 const getAllOvertimes = async () => {
-    const results = await OvertimeRecord.findAll();
-    const formattedResults = results.map(result => ({
-        ...result.dataValues,
-        start_time: timeParser(result.start_time),
-        end_time: timeParser(result.end_time),
-    }));
-    return formattedResults;
+    return await OvertimeRecord.findAll();
 };
 
 const getOvertimeById = async (employee_id) => {
@@ -72,9 +67,30 @@ const updateOvertime = async (seq, data) => {
     const updateResult = await OvertimeRecord.update(data, { where: { seq }, returning: true });
     return updateResult[1][0];
 };
-const updateBulkOvertime = async (data) => {
-
+const updateBulkOvertime = async (ids, hr_permit) => {
+    const trade = await sequelize.transaction();
+    try {
+        await OvertimeRecord.update(hr_permit, {
+            where: {
+                seq: ids
+            },
+            transaction: trade
+        });
+        const updatedRecords = await OvertimeRecord.findAll({
+            where: {
+                seq: ids
+            },
+            transaction: trade
+        });
+        await trade.commit();
+        console.log("Update records successfully!");
+        return updatedRecords;
+    } catch (error) {
+        await trade.rollback();
+        console.error("Update records failed: ", error);
+    }
 };
+
 
 const deleteOvertime = async (seq) => {
     return OvertimeRecord.destroy({ where: { seq } });

@@ -4,6 +4,7 @@ import Department from "../../model/Department_model.js";
 import LeaveType from "../../model/LeaveType_model.js";
 import { col, fn } from "sequelize";
 import { timeParser } from "../../common/timeParser.js";
+import sequelize from "../../Database.js";
 
 const createLeave = async (data) => {
     return LeaveRecord.create(data);
@@ -75,8 +76,28 @@ const updateLeave = async (seq, data) => {
     const updateResult = await LeaveRecord.update(data, { where: { seq }, returning: true });
     return updateResult[1][0];
 };
-const updateBulkLeave = async (data) => {
-
+const updateBulkLeave = async (ids, hr_permit) => {
+    const trade = await sequelize.transaction();
+    try {
+        await LeaveRecord.update(hr_permit, {
+            where: {
+                seq: ids
+            },
+            transaction: trade
+        });
+        const updatedRecords = await LeaveRecord.findAll({
+            where: {
+                seq: ids
+            },
+            transaction: trade
+        });
+        await trade.commit();
+        console.log("Update records successfully!");
+        return updatedRecords;
+    } catch (error) {
+        await trade.rollback();
+        console.error("Update records failed: ", error);
+    }
 };
 const deleteLeave = async (seq) => {
     return LeaveRecord.destroy({ where: { seq } });

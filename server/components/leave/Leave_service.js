@@ -65,8 +65,11 @@ const updateLeave = catchError(async (req, res) => {
     res.json(updatedLeave);
 });
 const updateBulkLeave = catchError(async (req, res) => {
-    console.log(req.body.data.ids);
-    //const updatedLeave = await leaveRepository.updateLeave(body);
-    res.json('');
+    const ids = req.body.ids;
+    const hr_permit = req.body.hr_permit;
+    console.log(ids);
+    const updatedLeave = await leaveRepository.updateBulkLeave(ids, hr_permit);
+    res.json(updatedLeave);
 });
 export default { updateLeave, updateBulkLeave, deleteLeave, getAllLeaves, getLeave, createLeave, getFilterLeave };
+

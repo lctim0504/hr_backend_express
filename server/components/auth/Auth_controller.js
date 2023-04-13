@@ -4,12 +4,12 @@ import { isAdmin, isUser } from "../../JWT_token.js";
 
 const AuthController = express.Router();
 
-AuthController.get("/check", isUser);
+// AuthController.get("/check", isUser, AuthService.returnIsUser);
 AuthController.post("/login", AuthService.getAuth);
 AuthController.post("/register", isAdmin, AuthService.createAuth);
 
 AuthController.get("/", isAdmin, AuthService.getAllAccount);
 AuthController.delete("/:id", isAdmin, AuthService.deleteAccount);
-AuthController.delete("/", isAdmin, AuthService.deleteBulkAccount);
+AuthController.put("/", isAdmin, AuthService.deleteBulkAccount);
 
 export default AuthController;

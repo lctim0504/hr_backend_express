@@ -26,3 +26,17 @@ export const wrong_data_type = {
 }
 
 export const registered_test_id = 'test123'; // 假設存在一個帳號為 test123 的帳戶
+
+export const adminAccount = {
+    account: 'testAdmin',
+    password: 'testAdmin'
+}
+export const adminData = {
+    employee_id: 'testAdmin',
+    name: 'testAdmin',
+    department_id: 'ITS001',
+    work_type_id: '1-1',
+    isSupervisor: true,
+    isAdmin: true
+}
+

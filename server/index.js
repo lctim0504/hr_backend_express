@@ -30,6 +30,7 @@ import ScheduleController from "./components/schedule/Schedule_controller.js"
 import ItemController from "./components/item/Item_controller.js"
 import ExportController from "./components/export/Export_controller.js"
 import QuotaController from "./components/quota/Quota_controller.js"
+import OvertimeController from "./components/overtime/Overtime_controller.js"
 
 app.use(express.json())
 app.use("/user", UserController)
@@ -39,6 +40,7 @@ app.use("/schedule", ScheduleController)
 app.use("/item", ItemController)
 app.use("/export", ExportController)
 app.use("/quota", QuotaController)
+app.use("/overtime", OvertimeController)
 
 export default app
 

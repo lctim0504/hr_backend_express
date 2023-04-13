@@ -1,33 +1,27 @@
 import { Sequelize } from "sequelize";
 import overtimeRepository from "./Overtime_repository.js";
 import { transporter } from "../../nodemailer.js";
-import { createOvertimeRecordSchema, updateBulkOvertimeRecordSchema, updateOvertimeRecordSchema } from "../../schema/OvertimeRecord_schema.js";
 import { catchError } from "../../common/catchError.js";
-import { timeParser } from "../../common/timeParser.js";
+import { SQLtimeParser, now } from "../../common/timeParser.js";
+import { createOovertimeSchema, updateOovertimeSchema } from "../../schema/OvertimeRecord_schema.js";
 
 const createOvertime = catchError(async (req, res) => {
-    const body = await createOvertimeRecordSchema.validateAsync(req.body);
+    const body = await createOovertimeSchema.validateAsync(req.body);
 
-    body.start_time = Sequelize.literal(`Cast('${timeParser(body.start_time)}' as datetime)`);
-    body.end_time = Sequelize.literal(`Cast('${timeParser(body.end_time)}' as datetime)`);
-    body.create_time = Sequelize.literal(`Cast('${timeParser(new Date())}' as datetime)`);
+    const data = {
+        ...body,
+        last_update_time: SQLtimeParser(now),
+        start_time: SQLtimeParser(body.start_time),
+        end_time: SQLtimeParser(body.end_time),
+        year: new Date().getFullYear(),
+    };
+    const newOvertime = await overtimeRepository.createOvertime(data);
 
-    console.log(body);
-    const newOvertime = await overtimeRepository.createOvertime(body);
-    // 取得對應的部門主管
-    const supervisorEmail = await overtimeRepository.getSupervisorEmailById(newOvertime.dataValues.employee_id);
-    console.log(supervisorEmail);
-    // await transporter.sendMail({
-    //     from: 'timlin@dli-memory.com.tw', // 申請人
-    //     to: 'timlin@dli-memory.com.tw', // 部門主管
-    //     subject: '請假申請(自動發信)', // Subject line
-    //     text: supervisorEmail, // plain text body
-    // });
     res.json(newOvertime);
 });
 
 const deleteOvertime = catchError(async (req, res) => {
-    const seq = req.params.id;
+    const seq = req.params.seq;
     await overtimeRepository.deleteOvertime(seq);
     res.json("資料成功刪除");
 });
@@ -54,15 +48,27 @@ const getFilterOvertime = catchError(async (req, res) => {
     res.json(getFilterOvertime)
 });
 const updateOvertime = catchError(async (req, res) => {
-    const body = await updateOvertimeRecordSchema.validateAsync(req.body);
-    body.permit_time = Sequelize.literal(`Cast('${now}' as datetime)`);
+    const seq = req.params.seq;
+    const body = await updateOovertimeSchema.validateAsync(req.body);
 
-    const updatedOvertime = await overtimeRepository.updateOvertime(body.seq, body);
+    const data = {
+        ...body,
+        last_update_time: SQLtimeParser(now),
+        act_start_time: SQLtimeParser(body.act_start_time),
+        act_end_time: SQLtimeParser(body.act_end_time),
+        permit_time: SQLtimeParser(body.permit_time),
+        year: new Date().getFullYear(),
+    };
+
+    const updatedOvertime = await overtimeRepository.updateOvertime(seq, data);
     res.json(updatedOvertime);
 });
+
 const updateBulkOvertime = catchError(async (req, res) => {
-    console.log(req.body.data.ids);
-    //const updatedOvertime = await overtimeRepository.updateOvertime(body);
-    res.json('');
+    const ids = req.body.ids;
+    const hr_permit = req.body.hr_permit;
+    console.log(ids);
+    const updatedOvertime = await overtimeRepository.updateBulkOvertime(ids, hr_permit);
+    res.json(updatedOvertime);
 });
 export default { updateOvertime, updateBulkOvertime, deleteOvertime, getAllOvertimes, getOvertime, createOvertime, getFilterOvertime };

@@ -13,6 +13,7 @@ const Employee = sequelize.define('Employee', {
   department_id: DataTypes.STRING,
   work_type_id: DataTypes.STRING,
   isAdmin: DataTypes.BOOLEAN,
+  isSupervisor: DataTypes.BOOLEAN,
   email: DataTypes.STRING,
 }, {
   tableName: 'employee',

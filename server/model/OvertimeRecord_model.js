@@ -1,52 +1,28 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../Database.js";
-import Employee from "./Employee_.js";
 
-const OvertimeRecord = sequelize.define('OvertimeRecord', {
+const OvertimeRecord = sequelize.define('overtime_records', {
   seq: {
     type: DataTypes.INTEGER,
+    allowNull: false,
     primaryKey: true,
-    autoIncrement: true
+    autoIncrement: true,
   },
-  employee_id: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  start_time: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  end_time: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  hours: {
-    type: DataTypes.FLOAT,
-    allowNull: false
-  },
-  leave_type_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  reason: {
-    type: DataTypes.TEXT,
-  },
-  sub_name: {
-    type: DataTypes.STRING,
-  },
-  permit: {
-    type: DataTypes.BOOLEAN,
-  },
-  permit_time: {
-    type: DataTypes.DATE,
-  },
-  create_time: {
-    type: DataTypes.DATE,
-  },
+  employee_id: DataTypes.STRING(20),
+  overtime_type_id: DataTypes.INTEGER,
+  year: DataTypes.INTEGER,
+  start_time: DataTypes.DATE,
+  end_time: DataTypes.DATE,
+  hours: DataTypes.FLOAT,
+  permit_id: DataTypes.STRING(20),
+  hr_permit: DataTypes.BOOLEAN,
+  permit_time: DataTypes.DATE,
+  sv_permit: DataTypes.BOOLEAN,
+  reason: DataTypes.TEXT,
+  last_update_time: DataTypes.DATE,
+  act_start_time: DataTypes.DATE,
+  act_end_time: DataTypes.DATE,
 }, {
-  dialectOptions: {
-    collate: 'Chinese_Taiwan_Stroke_CI_AS'
-  },
   tableName: 'overtime_records',
   timestamps: false
 });
