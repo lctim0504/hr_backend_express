@@ -4,13 +4,9 @@ import sequelize from "../Database.js";
 const WorkType = sequelize.define('WorkType', {
     id: {
         type: DataTypes.STRING,
-        allowNull: false,
         primaryKey: true,
     },
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false
-    }
+    name: DataTypes.STRING,
 }, {
     tableName: 'work_type',
     timestamps: false

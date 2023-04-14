@@ -25,4 +25,21 @@ const deleteUser = async (employee_id) => {
     return await Employee.destroy({ where: { employee_id } });
 };
 
-export default { getAllUsers, getUserById, createUser, updateUser, deleteUser, };
+const deleteBulkUser = async (ids) => {
+    const trade = await sequelize.transaction();
+    try {
+        await Employee.destroy({
+            where: {
+                employee_id: ids
+            },
+            transaction: trade
+        });
+        await trade.commit();
+        // console.log("Delete accounts successfully!");
+    } catch (error) {
+        await trade.rollback();
+        console.error("Delete users failed: ", error);
+    }
+}
+
+export default { getAllUsers, getUserById, createUser, updateUser, deleteUser, deleteBulkUser };

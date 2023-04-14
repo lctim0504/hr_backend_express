@@ -1,44 +1,39 @@
 import Joi from 'joi';
 
 export const overtimeSchema = Joi.object({
-  employee_id: Joi.string().required(),
-  overtime_type_id: Joi.number().required(),
-  year: Joi.number().optional(),
-  start_time: Joi.date().required(),
-  end_time: Joi.date().required(),
-  hours: Joi.number().required(),
-  permit_id: Joi.string().optional(),
-  hr_permit: Joi.boolean().optional(),
-  permit_time: Joi.date().optional(),
-  sv_permit: Joi.boolean().optional(),
-  reason: Joi.string().optional(),
-  last_update_time: Joi.date().optional(),
-  act_start_time: Joi.date().optional(),
-  act_end_time: Joi.date().optional(),
+  employee_id: Joi.string(),
+  overtime_type_id: Joi.number(),
+  year: Joi.number(),
+  start_time: Joi.date(),
+  end_time: Joi.date(),
+  hours: Joi.number(),
+  permit_id: Joi.string(),
+  hr_permit: Joi.boolean(),
+  permit_time: Joi.date(),
+  sv_permit: Joi.boolean(),
+  reason: Joi.string(),
+  last_update_time: Joi.date(),
+  act_start_time: Joi.date(),
+  act_end_time: Joi.date(),
 });
 
-export const createOovertimeSchema = Joi.object({
+export const createOvertimeSchema = Joi.object({
   employee_id: Joi.string().required(),
   overtime_type_id: Joi.number().required(),
   start_time: Joi.date().required(),
   end_time: Joi.date().required(),
-  
-  hours: Joi.number().optional(),
-  permit_id: Joi.string().optional(),
-  hr_permit: Joi.boolean().optional(),
-  permit_time: Joi.date().optional(),
-  sv_permit: Joi.boolean().optional(),
-  reason: Joi.string().optional(),
-  act_start_time: Joi.date().optional(),
-  act_end_time: Joi.date().optional(),
+  hours: Joi.number(),
+  reason: Joi.string(),
+  act_start_time: Joi.date(),
+  act_end_time: Joi.date(),
 });
 
-export const updateOovertimeSchema = Joi.object({
-  hours: Joi.number().required(),
-  permit_id: Joi.string().required(),
-  hr_permit: Joi.boolean().required(),
-  permit_time: Joi.date().required(),
-  sv_permit: Joi.boolean().required(),
-  act_start_time: Joi.date().required(),
-  act_end_time: Joi.date().required(),
+export const updateOvertimeSchema = Joi.object({
+  hours: Joi.number(),
+  permit_id: Joi.string(),
+  hr_permit: Joi.boolean(),
+  permit_time: Joi.date(),
+  sv_permit: Joi.boolean(),
+  act_start_time: Joi.date(),
+  act_end_time: Joi.date(),
 });

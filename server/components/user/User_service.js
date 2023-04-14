@@ -49,11 +49,12 @@ const createUser = catchError(async (req, res) => {
 const deleteUser = catchError(async (req, res) => {
     const id = req.params.id;
     const success = await userRepository.deleteUser(id);
-    if (success) {
-        res.sendStatus(204);
-    } else {
-        res.status(400).json({ error: "查無使用者資料" });
-    }
+    if (success) res.sendStatus(204);
+    else res.status(400).json({ error: "查無使用者資料" });
 });
-
-export default { updateUser, deleteUser, getAllUsers, getUser, createUser, };
+const deleteBulkUser = catchError(async (req, res) => {
+    const ids = req.query.id;
+    await userRepository.deleteBulkUser(ids);
+    res.status(200).json("用戶成功刪除");
+});
+export default { updateUser, deleteUser, deleteBulkUser, getAllUsers, getUser, createUser, };

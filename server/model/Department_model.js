@@ -3,26 +3,17 @@ import sequelize from "../Database.js";
 
 const Department = sequelize.define('Department', {
     id: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING,
         primaryKey: true,
-        allowNull: false
     },
-    name: {
-        type: DataTypes.STRING(50),
-        allowNull: true
-    },
-    parent_id: {
-        type: DataTypes.STRING(50),
-        allowNull: true
-    },
-    supervisor_id: {
-        type: DataTypes.STRING(50),
-        allowNull: true
-    }
+    name: DataTypes.STRING,
+    parent_id: DataTypes.STRING,
+    supervisor_id: DataTypes.STRING,
 }, {
     tableName: 'department',
     timestamps: false
 });
 
 export default Department;
+
 

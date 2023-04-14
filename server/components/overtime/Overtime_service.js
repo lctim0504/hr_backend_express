@@ -3,10 +3,10 @@ import overtimeRepository from "./Overtime_repository.js";
 import { transporter } from "../../nodemailer.js";
 import { catchError } from "../../common/catchError.js";
 import { SQLtimeParser, now } from "../../common/timeParser.js";
-import { createOovertimeSchema, updateOovertimeSchema } from "../../schema/OvertimeRecord_schema.js";
+import { createOvertimeSchema, updateOvertimeSchema } from "../../schema/OvertimeRecord_schema.js";
 
 const createOvertime = catchError(async (req, res) => {
-    const body = await createOovertimeSchema.validateAsync(req.body);
+    const body = await createOvertimeSchema.validateAsync(req.body);
 
     const data = {
         ...body,
@@ -49,7 +49,7 @@ const getFilterOvertime = catchError(async (req, res) => {
 });
 const updateOvertime = catchError(async (req, res) => {
     const seq = req.params.seq;
-    const body = await updateOovertimeSchema.validateAsync(req.body);
+    const body = await updateOvertimeSchema.validateAsync(req.body);
 
     const data = {
         ...body,

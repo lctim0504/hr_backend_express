@@ -1,6 +1,5 @@
 import Joi from 'joi';
 
-
 export const employeeSchema = Joi.object({
   employee_id: Joi.string().required(),
   name: Joi.string().required(),

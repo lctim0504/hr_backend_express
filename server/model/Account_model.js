@@ -4,13 +4,9 @@ import sequelize from "../Database.js";
 const Account = sequelize.define('Account', {
   account: {
     type: DataTypes.STRING,
-    allowNull: false,
     primaryKey: true,
   },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false
-  }
+  password: DataTypes.STRING,
 }, {
   tableName: 'account',
   timestamps: false

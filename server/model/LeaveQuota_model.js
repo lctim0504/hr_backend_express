@@ -3,47 +3,19 @@ import sequelize from "../Database.js";
 
 const Leave = sequelize.define('Leave', {
   id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
     primaryKey: true,
+    type: DataTypes.INTEGER,
     autoIncrement: true
   },
-  employee_id: {
-    type: DataTypes.STRING(10),
-    allowNull: false
-  },
-  year: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  leave_type_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  remaining_hours: {
-    type: DataTypes.FLOAT,
-    allowNull: false
-  },
-  total_hours: {
-    type: DataTypes.FLOAT,
-    allowNull: false
-  },
-  leave_start_date: {
-    type: DataTypes.DATEONLY,
-    allowNull: false
-  },
-  leave_end_date: {
-    type: DataTypes.DATEONLY,
-    allowNull: false
-  },
-  last_update_time: {
-    type: DataTypes.DATE,
-    allowNull: false
-  },
-  create_time: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  }
+  employee_id: DataTypes.STRING,
+  year: DataTypes.INTEGER,
+  leave_type_id: DataTypes.INTEGER,
+  remaining_hours: DataTypes.FLOAT,
+  total_hours: DataTypes.FLOAT,
+  leave_start_date: DataTypes.DATEONLY,
+  leave_end_date: DataTypes.DATEONLY,
+  last_update_time: DataTypes.DATE,
+  create_time: DataTypes.DATE
 }, {
   tableName: 'leave',
   timestamps: false

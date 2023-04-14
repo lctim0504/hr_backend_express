@@ -7,18 +7,9 @@ const Schedule = sequelize.define('Schedule', {
         autoIncrement: true,
         primaryKey: true,
     },
-    employee_id: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    year: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    month: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
+    employee_id: DataTypes.STRING,
+    year: DataTypes.STRING,
+    month: DataTypes.STRING,
     '1': DataTypes.STRING,
     '2': DataTypes.STRING,
     '3': DataTypes.STRING,

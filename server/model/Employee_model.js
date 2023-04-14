@@ -6,7 +6,6 @@ import Department from "./Department_model.js";
 const Employee = sequelize.define('Employee', {
   employee_id: {
     type: DataTypes.STRING,
-    allowNull: false,
     primaryKey: true,
   },
   name: DataTypes.STRING,
