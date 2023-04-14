@@ -76,18 +76,18 @@ const updateLeave = async (seq, data) => {
     const updateResult = await LeaveRecord.update(data, { where: { seq }, returning: true });
     return updateResult[1][0];
 };
-const updateBulkLeave = async (ids, hr_permit) => {
+const updateBulkLeave = async (seqs, data) => {
     const trade = await sequelize.transaction();
     try {
-        await LeaveRecord.update({hr_permit}, {
+        await LeaveRecord.update(data, {
             where: {
-                seq: ids
+                seq: seqs
             },
             transaction: trade
         });
         const updatedRecords = await LeaveRecord.findAll({
             where: {
-                seq: ids
+                seq: seqs
             },
             transaction: trade
         });
@@ -105,7 +105,8 @@ const deleteLeave = async (seq) => {
 const deleteBulkLeave = async (seq) => {
     const trade = await sequelize.transaction();
     try {
-        await LeaveRecord.destroy({ where: { seq } ,
+        await LeaveRecord.destroy({
+            where: { seq },
             transaction: trade
         });
         await trade.commit();

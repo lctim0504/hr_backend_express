@@ -72,8 +72,8 @@ const updateLeave = catchError(async (req, res) => {
 });
 const updateBulkLeave = catchError(async (req, res) => {
     const seq = req.query.seq;
-    const hr_permit = req.body.hr_permit;
-    const updatedLeave = await leaveRepository.updateBulkLeave(seq, hr_permit);
+    const data = req.body;
+    const updatedLeave = await leaveRepository.updateBulkLeave(seq, data);
     res.json(updatedLeave);
 });
 

@@ -5,8 +5,8 @@ import { isAdmin, isSupervisor, isUser } from "../../JWT_token.js";
 const OvertimeController = express.Router();
 
 OvertimeController.get("/filter", isSupervisor, overtimeService.getFilterOvertime); //主管取得部門請假資料
-OvertimeController.put("/data", isAdmin, overtimeService.updateBulkOvertime);
-OvertimeController.delete("/data", isUser, overtimeService.deleteBulkOvertime);
+OvertimeController.put("/records", isAdmin, overtimeService.updateBulkOvertime);
+OvertimeController.delete("/records", isUser, overtimeService.deleteBulkOvertime);
 
 OvertimeController.get("/", isAdmin, overtimeService.getAllOvertimes);
 OvertimeController.post("/", isUser, overtimeService.createOvertime);

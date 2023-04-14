@@ -44,12 +44,13 @@ const getDpmSupervisor = async (id) => {
 };
 
 const updateDpmSupervisor = async (id, supervisor_id) => {
-
-    return await Department.update({ supervisor_id }, {
+    const [count, [updatedDepartment]] = await Department.update({ supervisor_id }, {
         where: { id },
         returning: true,
     });
+    return updatedDepartment;
 };
+
 
 
 export default { updateDpmSupervisor, getLeaveTypeDetail, getDepartments, getUserIds, getLeaveTypes, getDpmSupervisor };

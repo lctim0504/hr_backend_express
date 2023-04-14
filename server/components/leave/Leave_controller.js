@@ -7,8 +7,8 @@ const LeaveController = express.Router();
 LeaveController.get("/", isAdmin, leaveService.getAllLeaves);
 
 LeaveController.get("/filter", isSupervisor, leaveService.getFilterLeave); //主管取得部門請假資料
-LeaveController.delete("/data", isUser, leaveService.deleteBulkLeave);
-LeaveController.put("/data", isAdmin, leaveService.updateBulkLeave);
+LeaveController.delete("/records", isUser, leaveService.deleteBulkLeave);
+LeaveController.put("/records", isAdmin, leaveService.updateBulkLeave);
 
 LeaveController.post("/", isUser, leaveService.createLeave);
 LeaveController.get("/:id", isUser, leaveService.getLeave);

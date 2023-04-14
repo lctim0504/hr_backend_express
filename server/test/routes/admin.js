@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken"
 import { leave_test_data, permit_test_data, test_department_id, test_employee_id, test_leave_type_id } from '../datas/leave.js';
 import { overtime_permit_data, overtime_test_data } from '../datas/overtime.js';
 
-describe('-----------Admin function test-----------\r\n', function () {
+describe('\r\n-----------Admin function test-----------\r\n', function () {
 
     //--------------------------------------------------------測試資料
     const adminToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZV9pZCI6InRlc3RBZG1pbiIsImlzQWRtaW4iOnRydWUsImlzU3VwZXJ2aXNvciI6dHJ1ZSwiaWF0IjoxNjgxNDM4MDQ1fQ.6bAx7_k6yNrs7ds3-7bHYD7VHO1WHplLjDLivre0VBI';
@@ -21,6 +21,9 @@ describe('-----------Admin function test-----------\r\n', function () {
         isSupervisor: true,
         isAdmin: true
     }
+    const newSvId = {
+        employee_id: "1110010"
+    }
     describe('', function () {
         it('prepared !', function (done) {
             request(app)
@@ -31,7 +34,7 @@ describe('-----------Admin function test-----------\r\n', function () {
                         //解碼失敗
                         if (err) return res.status(403).json({ error: "invalid token" })
                         //解碼成功=>得到一開始sign的 employee_id 與 isAdmin
-                        console.log(payload);
+                        //console.log(payload);
                     })
                     done();
                 });
@@ -110,7 +113,7 @@ describe('-----------Admin function test-----------\r\n', function () {
     });
     describe('\r\n-----------Leave-----------', function () {
         let test_seq = '';
-        it('Get all', function (done) {
+        it('Get all data', function (done) {
             request(app)
                 .get('/leave')
                 .expect('Content-Type', /json/)
@@ -122,8 +125,7 @@ describe('-----------Admin function test-----------\r\n', function () {
                     done();
                 });
         });
-
-        it('Get By Id', function (done) {
+        it('Get data by Id', function (done) {
             request(app)
                 .get(`/leave/${test_employee_id}`)
                 .expect('Content-Type', /json/)
@@ -135,8 +137,7 @@ describe('-----------Admin function test-----------\r\n', function () {
                     done();
                 });
         });
-
-        it('Post', function (done) {
+        it('Create data ', function (done) {
             request(app)
                 .post('/leave')
                 .send(leave_test_data)
@@ -150,8 +151,7 @@ describe('-----------Admin function test-----------\r\n', function () {
                     done();
                 });
         });
-
-        it('Put', function (done) {
+        it('Update data by seq', function (done) {
             request(app)
                 .put(`/leave/${test_seq}`)
                 .send(permit_test_data)
@@ -164,8 +164,7 @@ describe('-----------Admin function test-----------\r\n', function () {
                     done();
                 });
         });
-
-        it('Delete', function (done) {
+        it('Delete data by seq', function (done) {
             request(app)
                 .delete(`/leave/${test_seq}`)
                 .set('Cookie', `JWT_token=${adminToken}`)
@@ -177,7 +176,6 @@ describe('-----------Admin function test-----------\r\n', function () {
                     done();
                 });
         });
-
         it('Get By Dpm', function (done) {
             request(app)
                 .get(`/leave/filter?department_id=${test_department_id}`)
@@ -300,4 +298,21 @@ describe('-----------Admin function test-----------\r\n', function () {
                 });
         });
     });
+    describe('\r\n-----------Item-----------', function () {
+        it('Update sv by dpm_id', function (done) {
+            let dpm_id = 'TEST001';
+            request(app)
+                .put(`/item/department/${dpm_id}`)
+                .send(newSvId)
+                .set('Cookie', `JWT_token=${adminToken}`)
+                .expect('Content-Type', /json/)
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    expect(res.body.id).to.equal(dpm_id);
+                    done();
+                });
+        });
+    });
+
 });

@@ -67,18 +67,18 @@ const updateOvertime = async (seq, data) => {
     const updateResult = await OvertimeRecord.update(data, { where: { seq }, returning: true });
     return updateResult[1][0];
 };
-const updateBulkOvertime = async (ids, hr_permit) => {
+const updateBulkOvertime = async (seqs, data) => {
     const trade = await sequelize.transaction();
     try {
-        await OvertimeRecord.update({hr_permit}, {
+        await OvertimeRecord.update(data, {
             where: {
-                seq: ids
+                seq: seqs
             },
             transaction: trade
         });
         const updatedRecords = await OvertimeRecord.findAll({
             where: {
-                seq: ids
+                seq: seqs
             },
             transaction: trade
         });
@@ -93,7 +93,8 @@ const updateBulkOvertime = async (ids, hr_permit) => {
 const deleteBulkOvertime = async (seq) => {
     const trade = await sequelize.transaction();
     try {
-        await OvertimeRecord.destroy({ where: { seq } ,
+        await OvertimeRecord.destroy({
+            where: { seq },
             transaction: trade
         });
         await trade.commit();

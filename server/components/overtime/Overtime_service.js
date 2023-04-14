@@ -66,8 +66,8 @@ const updateOvertime = catchError(async (req, res) => {
 
 const updateBulkOvertime = catchError(async (req, res) => {
     const seq = req.query.seq;
-    const hr_permit = req.body.hr_permit;
-    const updatedOvertime = await overtimeRepository.updateBulkOvertime(seq, hr_permit);
+    const data = req.body;
+    const updatedOvertime = await overtimeRepository.updateBulkOvertime(seq, data);
     res.json(updatedOvertime);
 });
 const deleteBulkOvertime = catchError(async (req, res) => {
