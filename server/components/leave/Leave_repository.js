@@ -79,7 +79,7 @@ const updateLeave = async (seq, data) => {
 const updateBulkLeave = async (ids, hr_permit) => {
     const trade = await sequelize.transaction();
     try {
-        await LeaveRecord.update(hr_permit, {
+        await LeaveRecord.update({hr_permit}, {
             where: {
                 seq: ids
             },
@@ -102,5 +102,18 @@ const updateBulkLeave = async (ids, hr_permit) => {
 const deleteLeave = async (seq) => {
     return LeaveRecord.destroy({ where: { seq } });
 };
+const deleteBulkLeave = async (seq) => {
+    const trade = await sequelize.transaction();
+    try {
+        await LeaveRecord.destroy({ where: { seq } ,
+            transaction: trade
+        });
+        await trade.commit();
+        console.log("delete records successfully!");
+    } catch (error) {
+        await trade.rollback();
+        console.error("delete records failed: ", error);
+    }
+};
 
-export default { getAllLeaves, getLeaveById, createLeave, updateLeave, updateBulkLeave, deleteLeave, getFilterLeave, getSupervisorEmailById };
+export default { getAllLeaves, getLeaveById, createLeave, updateLeave, updateBulkLeave, deleteBulkLeave, deleteLeave, getFilterLeave, getSupervisorEmailById };

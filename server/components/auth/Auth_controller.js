@@ -9,7 +9,7 @@ AuthController.post("/login", AuthService.getAuth);
 AuthController.post("/register", isAdmin, AuthService.createAuth);
 
 AuthController.get("/", isAdmin, AuthService.getAllAccount);
+AuthController.delete("/accounts", isAdmin, AuthService.deleteBulkAccount);
 AuthController.delete("/:id", isAdmin, AuthService.deleteAccount);
-AuthController.put("/", isAdmin, AuthService.deleteBulkAccount);
 
 export default AuthController;

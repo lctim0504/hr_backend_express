@@ -16,11 +16,10 @@ const createLeave = catchError(async (req, res) => {
     body.end_time = Sequelize.literal(`Cast('${timeParser(body.end_time)}' as datetime)`);
     body.create_time = Sequelize.literal(`Cast('${timeParser(new Date())}' as datetime)`);
 
-    console.log(body);
     const newLeave = await leaveRepository.createLeave(body);
     // 取得對應的部門主管
     const supervisorEmail = await leaveRepository.getSupervisorEmailById(newLeave.dataValues.employee_id);
-    console.log(supervisorEmail);
+    //console.log(supervisorEmail);
     // await transporter.sendMail({
     //     from: 'timlin@dli-memory.com.tw', // 申請人
     //     to: 'timlin@dli-memory.com.tw', // 部門主管
@@ -31,8 +30,14 @@ const createLeave = catchError(async (req, res) => {
 });
 
 const deleteLeave = catchError(async (req, res) => {
-    const seq = req.params.id;
+    const seq = req.params.seq;
     await leaveRepository.deleteLeave(seq);
+    res.json("資料成功刪除");
+});
+
+const deleteBulkLeave = catchError(async (req, res) => {
+    const seq = req.query.seq;
+    await leaveRepository.deleteBulkLeave(seq);
     res.json("資料成功刪除");
 });
 
@@ -58,18 +63,19 @@ const getFilterLeave = catchError(async (req, res) => {
     res.json(getFilterLeave)
 });
 const updateLeave = catchError(async (req, res) => {
+    const seq = req.params.seq;
     const body = await updateLeaveRecordSchema.validateAsync(req.body);
     body.permit_time = Sequelize.literal(`Cast('${now}' as datetime)`);
 
-    const updatedLeave = await leaveRepository.updateLeave(body.seq, body);
+    const updatedLeave = await leaveRepository.updateLeave(seq, body);
     res.json(updatedLeave);
 });
 const updateBulkLeave = catchError(async (req, res) => {
-    const ids = req.body.ids;
+    const seq = req.query.seq;
     const hr_permit = req.body.hr_permit;
-    console.log(ids);
-    const updatedLeave = await leaveRepository.updateBulkLeave(ids, hr_permit);
+    const updatedLeave = await leaveRepository.updateBulkLeave(seq, hr_permit);
     res.json(updatedLeave);
 });
-export default { updateLeave, updateBulkLeave, deleteLeave, getAllLeaves, getLeave, createLeave, getFilterLeave };
+
+export default { updateLeave, updateBulkLeave, deleteLeave, deleteBulkLeave, getAllLeaves, getLeave, createLeave, getFilterLeave };
 

@@ -8,44 +8,17 @@ const LeaveRecord = sequelize.define('LeaveRecord', {
     primaryKey: true,
     autoIncrement: true
   },
-  employee_id: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  start_time: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  end_time: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  hours: {
-    type: DataTypes.FLOAT,
-    allowNull: false
-  },
-  leave_type_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false
-  },
-  reason: {
-    type: DataTypes.TEXT,
-  },
-  sub_name: {
-    type: DataTypes.STRING,
-  },
-  hr_permit: {
-    type: DataTypes.BOOLEAN,
-  },
-  sv_permit: {
-    type: DataTypes.BOOLEAN,
-  },
-  permit_time: {
-    type: DataTypes.DATE,
-  },
-  create_time: {
-    type: DataTypes.DATE,
-  },
+  employee_id: DataTypes.STRING,
+  start_time: DataTypes.DATE,
+  end_time: DataTypes.DATE,
+  hours: DataTypes.FLOAT,
+  leave_type_id: DataTypes.INTEGER,
+  reason: DataTypes.TEXT,
+  sub_name: DataTypes.STRING,
+  hr_permit: DataTypes.BOOLEAN,
+  sv_permit: DataTypes.BOOLEAN,
+  permit_time: DataTypes.DATE,
+  create_time: DataTypes.DATE,
 }, {
   dialectOptions: {
     collate: 'Chinese_Taiwan_Stroke_CI_AS',

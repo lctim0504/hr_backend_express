@@ -6,8 +6,7 @@ import jwt from "jsonwebtoken"
 describe('-----------User function test-----------\r\n', function () {
 
     //--------------------------------------------------------測試資料
-    const userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZV9pZCI6InRlc3RVc2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlzU3VwZXJ2aXNvciI6ZmFsc2UsImlhdCI6MTY4MDg2Mjk5OX0.aoTqY2iwXlgzFs5h7lQAVRFn6W3zN6QH0Xnkv5dGKrU';
-
+    let userToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZV9pZCI6InRlc3RVc2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlzU3VwZXJ2aXNvciI6ZmFsc2UsImlhdCI6MTY4MDg2Mjk5OX0.aoTqY2iwXlgzFs5h7lQAVRFn6W3zN6QH0Xnkv5dGKrU';
     const userAccount = {
         account: 'testUser',
         password: 'testUser'
@@ -22,25 +21,18 @@ describe('-----------User function test-----------\r\n', function () {
     }
     //--------------------------------------------------------測試
 
-    it('User delete帳戶資料', function (done) {
+    it('delete帳戶資料 403', function (done) {
         request(app)
             .delete(`/auth/${userAccount.account}`)
             .set('Cookie', `JWT_token=${userToken}`)
             .expect(403)
             .end(function (err, res) {
                 if (err) return done(err);
-                // 驗證回傳的數據是否為空對象
-                jwt.verify(userToken, process.env.JWT, (err, payload) => {
-                    //解碼失敗
-                    if (err) return res.status(403).json({ error: "invalid token" })
-                    //解碼成功=>得到一開始sign的 employee_id 與 isAdmin
-                    console.log(payload);
-                })
                 done();
             });
     });
 
-    it('User delete員工資料', function (done) {
+    it('delete員工資料 403', function (done) {
         request(app)
             .delete(`/user/${userAccount.account}`)
             .set('Cookie', `JWT_token=${userToken}`)
@@ -51,7 +43,7 @@ describe('-----------User function test-----------\r\n', function () {
             });
     });
 
-    it('User create帳戶資料', function (done) {
+    it('create帳戶資料 403', function (done) {
         request(app)
             .post('/auth/register')
             .set('Cookie', `JWT_token=${userToken}`)
@@ -64,7 +56,7 @@ describe('-----------User function test-----------\r\n', function () {
             });
     });
 
-    it('User create員工資料', function (done) {
+    it('create員工資料 403', function (done) {
         request(app)
             .post('/user')
             .send(userData)
@@ -87,9 +79,14 @@ describe('-----------User function test-----------\r\n', function () {
                 if (err) return done(err);
                 // 驗證回傳的 Cookie 中是否包含 JWT_token
                 expect(res.header['set-cookie'][0]).to.include('JWT_token');
-                // userToken = res.header['set-cookie'][0]
-                // console.log(userToken);
                 done();
+                const userToken = res.header['set-cookie'][0];
+                const JWT_token = userToken.split(';')[0].split('=')[1];
+                // 驗證回傳的數據是否為空對象
+                jwt.verify(JWT_token, process.env.JWT, (err, payload) => {
+                    //解碼成功=>得到一開始sign的 employee_id 與 isAdmin
+                    console.log(payload);
+                })
             });
     });
 });

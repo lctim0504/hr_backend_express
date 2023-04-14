@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../Database.js";
+import Employee from "./Employee_model.js";
 
 const OvertimeRecord = sequelize.define('overtime_records', {
   seq: {
@@ -26,5 +27,7 @@ const OvertimeRecord = sequelize.define('overtime_records', {
   tableName: 'overtime_records',
   timestamps: false
 });
+
+OvertimeRecord.belongsTo(Employee, { foreignKey: 'employee_id', as: 'employee_data' });
 
 export default OvertimeRecord;

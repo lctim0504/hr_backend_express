@@ -70,7 +70,7 @@ const updateOvertime = async (seq, data) => {
 const updateBulkOvertime = async (ids, hr_permit) => {
     const trade = await sequelize.transaction();
     try {
-        await OvertimeRecord.update(hr_permit, {
+        await OvertimeRecord.update({hr_permit}, {
             where: {
                 seq: ids
             },
@@ -90,10 +90,22 @@ const updateBulkOvertime = async (ids, hr_permit) => {
         console.error("Update records failed: ", error);
     }
 };
-
+const deleteBulkOvertime = async (seq) => {
+    const trade = await sequelize.transaction();
+    try {
+        await OvertimeRecord.destroy({ where: { seq } ,
+            transaction: trade
+        });
+        await trade.commit();
+        console.log("delete records successfully!");
+    } catch (error) {
+        await trade.rollback();
+        console.error("delete records failed: ", error);
+    }
+};
 
 const deleteOvertime = async (seq) => {
     return OvertimeRecord.destroy({ where: { seq } });
 };
 
-export default { getAllOvertimes, getOvertimeById, createOvertime, updateOvertime, updateBulkOvertime, deleteOvertime, getFilterOvertime, getSupervisorEmailById };
+export default { getAllOvertimes, getOvertimeById, deleteBulkOvertime, createOvertime, updateOvertime, updateBulkOvertime, deleteOvertime, getFilterOvertime, getSupervisorEmailById };

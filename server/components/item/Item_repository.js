@@ -43,5 +43,14 @@ const getDpmSupervisor = async (id) => {
     });
 };
 
-export default { getLeaveTypeDetail, getDepartments, getUserIds, getLeaveTypes, getDpmSupervisor };
+const updateDpmSupervisor = async (id, supervisor_id) => {
+
+    return await Department.update({ supervisor_id }, {
+        where: { id },
+        returning: true,
+    });
+};
+
+
+export default { updateDpmSupervisor, getLeaveTypeDetail, getDepartments, getUserIds, getLeaveTypes, getDpmSupervisor };
 

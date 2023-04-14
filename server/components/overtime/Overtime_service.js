@@ -65,10 +65,14 @@ const updateOvertime = catchError(async (req, res) => {
 });
 
 const updateBulkOvertime = catchError(async (req, res) => {
-    const ids = req.body.ids;
+    const seq = req.query.seq;
     const hr_permit = req.body.hr_permit;
-    console.log(ids);
-    const updatedOvertime = await overtimeRepository.updateBulkOvertime(ids, hr_permit);
+    const updatedOvertime = await overtimeRepository.updateBulkOvertime(seq, hr_permit);
     res.json(updatedOvertime);
 });
-export default { updateOvertime, updateBulkOvertime, deleteOvertime, getAllOvertimes, getOvertime, createOvertime, getFilterOvertime };
+const deleteBulkOvertime = catchError(async (req, res) => {
+    const seq = req.query.seq;
+    await overtimeRepository.deleteBulkOvertime(seq);
+    res.json("資料成功刪除");
+});
+export default { updateOvertime, updateBulkOvertime, deleteBulkOvertime, deleteOvertime, getAllOvertimes, getOvertime, createOvertime, getFilterOvertime };

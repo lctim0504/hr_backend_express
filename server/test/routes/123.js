@@ -3,14 +3,13 @@ import app from '../../index.js' // 注意，需要使用相對路徑
 import { expect } from 'chai';
 
 describe('starting...', function () {
-    it('', function (done) {
+    it('preparing', function (done) {
         request(app)
             .get('/user')
+            .set('Cookie', `JWT_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZV9pZCI6InRlc3RBZG1pbiIsImlzQWRtaW4iOnRydWUsImlzU3VwZXJ2aXNvciI6dHJ1ZSwiaWF0IjoxNjgxNDM4MDQ1fQ.6bAx7_k6yNrs7ds3-7bHYD7VHO1WHplLjDLivre0VBI`)
             .expect(200)
-            .timeout(1000)
             .end(function (err, res) {
                 if (err) return done(err);
-
                 done();
             });
     });

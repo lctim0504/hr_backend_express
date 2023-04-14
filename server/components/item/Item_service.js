@@ -1,13 +1,5 @@
+import { catchError } from "../../common/catchError.js";
 import itemRepository from "./Item_repository.js";
-
-const catchError = (handler) => async (req, res, next) => {
-    try {
-        await handler(req, res, next);
-    } catch (error) {
-        console.log("Error: " + error);
-        res.status(500).json({ error: "Something went wrong" });
-    }
-};
 
 const getDepartments = catchError(async (req, res) => {
     const result = await itemRepository.getDepartments();
@@ -31,9 +23,17 @@ const getLeaveTypeDetail = catchError(async (req, res) => {
 });
 
 const getDpmSupervisor = catchError(async (req, res) => {
-    const dpm = req.params.dpm;
-    const result = await itemRepository.getDpmSupervisor(dpm);
+    const department_id = req.params.department_id;
+    const result = await itemRepository.getDpmSupervisor(department_id);
     res.json(result);
 });
 
-export default { getLeaveTypeDetail, getDepartments, getUserIds, getLeaveTypes, getDpmSupervisor };
+const updateDpmSupervisor = catchError(async (req, res) => {
+    const department_id = req.params.department_id;
+    const supervisor_id = req.body.employee_id;
+
+    const result = await itemRepository.updateDpmSupervisor(department_id, supervisor_id);
+    res.json(result);
+});
+
+export default { updateDpmSupervisor, getLeaveTypeDetail, getDepartments, getUserIds, getLeaveTypes, getDpmSupervisor };

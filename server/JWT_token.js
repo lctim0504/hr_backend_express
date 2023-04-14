@@ -11,6 +11,7 @@ const JWT_token = (req, res, next, callBackFunction) => {
         if (err) return res.status(403).json({ error: "invalid token" })
         //解碼成功=>得到一開始sign的 employee_id 與 isAdmin
         req.userData = payload;
+        //console.log(payload);
         //調用回調函數
         callBackFunction()
     })

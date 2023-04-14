@@ -60,9 +60,9 @@ const deleteAccount = catchError(async (req, res) => {
     res.status(200).json("用戶成功刪除");
 });
 const deleteBulkAccount = catchError(async (req, res) => {
-    const body = req.body.ids;
-    console.log(body);
-    await authRepository.deleteBulkAccount(body);
+    const ids = req.query.id;
+    console.log(ids);
+    await authRepository.deleteBulkAccount(ids);
     res.status(200).json("用戶成功刪除");
 });
 const getAllAccount = catchError(async (req, res) => {
