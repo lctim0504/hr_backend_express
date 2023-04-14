@@ -1,0 +1,11 @@
+# 定義一個作業
+test:
+  # 使用 node:12 鏡像作為基礎鏡像
+  image: node:14
+  # 在運行測試前安裝相關依賴
+  before_script:
+    - cd server
+    - npm install
+  # 執行單元測試
+  script:
+    - npx mocha test/routes/*.js
