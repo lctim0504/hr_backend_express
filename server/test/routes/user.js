@@ -138,5 +138,6 @@ describe('\r\n-----------Auth function test-----------\r\n', function () {
                 if (err) return done(err);
                 done();
             });
+        process.exit();
     });
 });
