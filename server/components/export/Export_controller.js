@@ -4,7 +4,8 @@ import { isAdmin, isUser } from "../../JWT_token.js";
 
 const ExportController = express.Router();
 
-ExportController.get("/leaveRecords", isAdmin, exportService.getLeaveRecords);
+ExportController.get("/leaveExcel", isAdmin, exportService.getLeaveRecords);
+ExportController.get("/overtimeExcel", isAdmin, exportService.getOvertimeRecords);
 
 
 export default ExportController;

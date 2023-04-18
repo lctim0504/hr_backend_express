@@ -314,5 +314,4 @@ describe('\r\n-----------Admin function test-----------\r\n', function () {
                 });
         });
     });
-
 });

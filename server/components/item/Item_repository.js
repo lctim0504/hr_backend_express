@@ -1,6 +1,7 @@
 import Department from "../../model/Department_model.js";
 import Employee from "../../model/Employee_model.js";
 import LeaveType from "../../model/LeaveType_model.js";
+import OvertimeType from "../../model/OvertimeType_model.js";
 import WorkTypeDetail from "../../model/WorkTypeDetail_model.js";
 
 const getDepartments = async () => {
@@ -23,6 +24,13 @@ const getLeaveTypes = async () => {
         attributes: ['id', 'name'],
     })
 };
+
+const getOvertimeTypes = async () => {
+    return await OvertimeType.findAll({
+        attributes: ['id', 'name'],
+    })
+};
+
 
 const getLeaveTypeDetail = async (work_type_id) => {
     return await WorkTypeDetail.findAll({
@@ -53,5 +61,5 @@ const updateDpmSupervisor = async (id, supervisor_id) => {
 
 
 
-export default { updateDpmSupervisor, getLeaveTypeDetail, getDepartments, getUserIds, getLeaveTypes, getDpmSupervisor };
+export default { getOvertimeTypes, updateDpmSupervisor, getLeaveTypeDetail, getDepartments, getUserIds, getLeaveTypes, getDpmSupervisor };
 

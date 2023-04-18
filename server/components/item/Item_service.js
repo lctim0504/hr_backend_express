@@ -16,6 +16,11 @@ const getLeaveTypes = catchError(async (req, res) => {
     res.json(result);
 });
 
+const getOvertimeTypes = catchError(async (req, res) => {
+    const result = await itemRepository.getOvertimeTypes();
+    res.json(result);
+});
+
 const getLeaveTypeDetail = catchError(async (req, res) => {
     const id = req.params.id;
     const result = await itemRepository.getLeaveTypeDetail(id);
@@ -36,4 +41,4 @@ const updateDpmSupervisor = catchError(async (req, res) => {
     res.json(result);
 });
 
-export default { updateDpmSupervisor, getLeaveTypeDetail, getDepartments, getUserIds, getLeaveTypes, getDpmSupervisor };
+export default { updateDpmSupervisor, getOvertimeTypes, getLeaveTypeDetail, getDepartments, getUserIds, getLeaveTypes, getDpmSupervisor };

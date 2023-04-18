@@ -20,7 +20,7 @@ export const LeaveRecords = async (leaveRecords, res) => {
         worksheet.getCell(`G${i}`).value = new Date(record.end_time);
         worksheet.getCell(`H${i}`).value = new Date(record.end_time);
         worksheet.getCell(`I${i}`).value = record.hours;
-        worksheet.getCell(`J${i}`).value = record.reason;
+        worksheet.getCell(`L${i}`).value = record.reason;
         i++;
     }
     // 儲存 Excel 檔案
