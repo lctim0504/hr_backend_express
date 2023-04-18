@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 import { catchError } from "../../common/catchError.js";
-import { employeeSchema, postEmployeeSchema } from "../../schema/Employee_schema.js";
+import { employeeSchema, postEmployeeSchema,updateEmployeeSchema } from "../../schema/Employee_schema.js";
 import userRepository from "./User_repository.js";
 
 const getUser = catchError(async (req, res) => {
@@ -21,7 +21,7 @@ const getAllUsers = catchError(async (req, res) => {
 const updateUser = catchError(async (req, res) => {
     const id = req.params.id;
     const { employee_id, ...rest } = req.body; // 從body中取出employee_id和其他資料
-    const body = await postEmployeeSchema.validateAsync(rest);
+    const body = await updateEmployeeSchema.validateAsync(rest);
 
     const userExisted = await userRepository.getUserById(id);
     if (!userExisted) {

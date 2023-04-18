@@ -23,9 +23,9 @@ export const createOvertimeSchema = Joi.object({
   start_time: Joi.date().required(),
   end_time: Joi.date().required(),
   hours: Joi.number(),
-  reason: Joi.string(),
-  act_start_time: Joi.date(),
-  act_end_time: Joi.date(),
+  reason: Joi.string().allow(null, ''),
+  act_start_time: Joi.date().allow(null, ''),
+  act_end_time: Joi.date().allow(null, ''),
 });
 
 export const updateOvertimeSchema = Joi.object({

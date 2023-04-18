@@ -19,3 +19,8 @@ export const postEmployeeSchema = Joi.object({
   email: Joi.string().email()
 });
 
+export const updateEmployeeSchema = Joi.object({
+  id: Joi.string(),
+  isSupervisor: Joi.boolean().required()
+});
+
