@@ -9,9 +9,9 @@ test:
   tags:
     - shell, myrunner, timpc
   script:
-    - export DB_NAME=$DB_NAME
-    - export DB_USER=$DB_USER
-    - export DB_PASS=$DB_PASS
-    - export DB_SERVER=$DB_SERVER
-    - export JWT=$JWT
+    - set DB_NAME=%DB_NAME%
+    - set DB_USER=%DB_USER%
+    - set DB_PASS=%DB_PASS%
+    - set DB_SERVER=%DB_SERVER%
+    - set JWT=%JWT%
     - npx mocha test/routes/*.js
