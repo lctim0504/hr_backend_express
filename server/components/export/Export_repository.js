@@ -3,7 +3,7 @@ import LeaveRecord from "../../model/LeaveRecord_model.js";
 
 const getLeaveRecords = async () => {
     const results = await LeaveRecord.findAll({
-        where: { permit: 1 },
+        where: { sv_permit: 1 },
         include: [
             {
                 model: Employee,
