@@ -2,6 +2,10 @@ stages:
   - build
   - test
 
+before_script:
+    - cd server
+    - npm install
+
 build:
   # 使用Docker鏡像
   image: docker:latest
@@ -18,9 +22,7 @@ test:
   tags:
     - shell
     # 在運行測試前安裝相關依賴
-  before_script:
-    - cd server
-    - npm install
+
   # 執行單元測試
   script:
     - npx mocha test/routes/*.js
