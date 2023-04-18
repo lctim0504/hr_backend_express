@@ -1,28 +1,17 @@
 stages:
-  - build
   - test
 
 before_script:
-    - cd server
-    - npm install
-
-build:
-  # 使用Docker鏡像
-  image: docker:latest
-  tags:
-    - shell
-  # 在Docker容器中運行的指令
-  script:
-    - docker build -t my-app .
-
+  - cd server
+  - npm install
 
 test:
-  # 使用 node:14 鏡像作為基礎鏡像
-  image: node:14
   tags:
     - shell
-    # 在運行測試前安裝相關依賴
-
-  # 執行單元測試
   script:
+    - export DB_NAME=$DB_NAME
+    - export DB_USER=$DB_USER
+    - export DB_PASS=$DB_PASS
+    - export DB_SERVER=$DB_SERVER
+    - export JWT=$JWT
     - npx mocha test/routes/*.js
