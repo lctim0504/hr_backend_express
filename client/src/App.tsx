@@ -1,31 +1,40 @@
-import React from 'react'
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-} from "react-router-dom";
-import Login from './component/Login';
-import Home from './component/Home';
-import Approval from './component/Approval';
-import MySchedule from './component/Schedule';
-import Login2 from './component/Login2';
-import AdminPage from './component/admin/AdminPage';
+import React, { useEffect, useState } from 'react';
+import logo from './logo.svg';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Login from './views/Login';
+import Absence from './views/Absence';
+import OverTime from './views/OverTime';
+import Approval from './views/Approval';
+import AdminPage from './views/AdminPage';
 
-const App = () => {
+function App() {
+
+  const [config, setConfig] = useState(() => {
+    const storedConfig = localStorage.getItem('config');
+    return storedConfig ? JSON.parse(storedConfig) : {};
+  });
+
+  useEffect(() => {
+    localStorage.setItem('config', JSON.stringify(config));
+  }, [config]);
+
   return (
-    <div>
-      <Router>
+      <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/login" element={<Login2 />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/approval" element={<Approval />} />
-          <Route path="/schedule" element={<MySchedule />} />
-          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/" element={<Login setConfig={setConfig} />} />
+          <Route path="/Absence" element={<Absence config={config} />} />
+          <Route path="/Overtime" element={<OverTime config={config} />} />
+          <Route path="/Approval" element={<Approval config={config} />} />
+          <Route path="/Control" element={<AdminPage />} />
+
+          {/* <Route path="/Import" element={<Import />} />
+        <Route path="/Search" element={<Import />} />
+        <Route path="/HRApproval" element={<HRApproval />} /> */}
         </Routes>
-      </Router>
-    </div>
-  )
+      </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
+
+
