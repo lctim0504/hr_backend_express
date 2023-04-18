@@ -7,7 +7,7 @@ before_script:
 
 test:
   tags:
-    - shell
+    - shell, myrunner, timpc
   script:
     - export DB_NAME=$DB_NAME
     - export DB_USER=$DB_USER
