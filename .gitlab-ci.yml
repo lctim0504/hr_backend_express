@@ -4,6 +4,8 @@ stages:
 test:
   # 使用 node:14 鏡像作為基礎鏡像
   image: node:14
+  tags:
+    - tim-pc
   # 在運行測試前安裝相關依賴
   before_script:
     - cd server
