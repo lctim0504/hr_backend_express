@@ -1,6 +1,8 @@
-# 定義一個作業
+stages:
+  - test
+
 test:
-  # 使用 node:12 鏡像作為基礎鏡像
+  # 使用 node:14 鏡像作為基礎鏡像
   image: node:14
   # 在運行測試前安裝相關依賴
   before_script:
