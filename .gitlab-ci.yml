@@ -1,10 +1,20 @@
 stages:
+  - build
   - test
+
+build:
+  # 使用Docker鏡像
+  image: docker:latest
+  # 在Docker容器中運行的指令
+  script:
+    - docker build -t my-app .
 
 test:
   # 使用 node:14 鏡像作為基礎鏡像
   image: node:14
-  # 在運行測試前安裝相關依賴
+  tags:
+    - tim-pc
+    # 在運行測試前安裝相關依賴
   before_script:
     - cd server
     - npm install
