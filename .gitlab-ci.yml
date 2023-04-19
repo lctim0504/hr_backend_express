@@ -10,6 +10,7 @@ build:
   tags:
     - l0cal, d0cker, tim-pc
   script:
+    - pwd
     - docker build -t hr -f DockerFile .
     - docker run -p 5000:5000 hr
 
@@ -20,6 +21,7 @@ test:
   needs:
     - build
   script:
+    - pwd
     - set DB_NAME=%DB_NAME%
     - set DB_USER=%DB_USER%
     - set DB_PASS=%DB_PASS%
