@@ -10,9 +10,11 @@ build:
     - pwd
     - ls
     - docker version
+    - systemctl status docker
+    - docker images
+    - systemctl status docker
     - docker ps
     - docker port
-    - docker images
     - docker build -t hr -f DockerFile .
     - docker run -p 5000:5000 hr
 
