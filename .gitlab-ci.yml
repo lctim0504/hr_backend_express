@@ -4,9 +4,9 @@ stages:
 
 build:
   stage: build
+  image: docker:latest
   tags:
   - D0cker
-  - chooseMe
   script:
   - docker --version
   - docker build -t hr -f DockerFile .
