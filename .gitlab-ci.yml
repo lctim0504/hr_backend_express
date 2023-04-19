@@ -5,16 +5,8 @@ stages:
 build:
   stage: build
   image: docker:latest
-  services:
-  - name: docker:dind
-    alias: thedockerhost
-    entrypoint: ["--tls=false"]
-  variables:
-    DOCKER_HOST: tcp://thedockerhost:2375/
-    DOCKER_DRIVER: overlay2
-    DOCKER_TLS_CERTDIR: ""
   tags:
-  - D0cker2, chooseMe, myD0ckerRunner
+  - D0cker
   script:
   - docker --version
   - docker build -t hr -f DockerFile .
