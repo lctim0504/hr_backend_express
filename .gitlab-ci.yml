@@ -2,16 +2,13 @@ stages:
   - build
   - test
 
-variables:
-  DOCKER_HOST: tcp://docker:2375/
-
 build:
   image: docker:latest
   tags:
     - l0cal, d0cker, tim-pc
   script:
     - pwd
-    - systemctl status docker
+    - dir
     - docker build -t hr -f DockerFile .
     - docker run -p 5000:5000 hr
 
