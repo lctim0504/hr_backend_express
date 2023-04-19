@@ -9,6 +9,10 @@ build:
   script:
     - pwd
     - ls
+    - docker version
+    - docker ps
+    - docker port
+    - docker images
     - docker build -t hr -f DockerFile .
     - docker run -p 5000:5000 hr
 
