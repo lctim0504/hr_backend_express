@@ -2,6 +2,9 @@ stages:
   - build
   - test
 
+variables:
+  DOCKER_HOST: tcp://docker:2375/
+
 build:
   image: docker:latest
   tags:
