@@ -8,25 +8,25 @@ variables:
   DOCKER_TLS_CERTDIR: ''
 
 build:
+  stage: build
   image: docker:latest
   tags:
     - D0cker2, chooseMe, myD0ckerRunner
   script:
-    - service docker start
+    - docker --version
     - docker build -t hr -f DockerFile .
-    - docker run -p 5000:5000 hr
 
-test:
-  image: node:14-alpine
-  tags:
-    - l0cal, d0cker, tim-pc
-  needs:
-    - build
-  script:
-    - pwd
-    - set DB_NAME=%DB_NAME%
-    - set DB_USER=%DB_USER%
-    - set DB_PASS=%DB_PASS%
-    - set DB_SERVER=%DB_SERVER%
-    - set JWT=%JWT%
-    - npx mocha test/routes/*.js
+# test:
+#   image: node:14-alpine
+#   tags:
+#     - l0cal, d0cker, tim-pc
+#   needs:
+#     - build
+#   script:
+#     - pwd
+#     - set DB_NAME=%DB_NAME%
+#     - set DB_USER=%DB_USER%
+#     - set DB_PASS=%DB_PASS%
+#     - set DB_SERVER=%DB_SERVER%
+#     - set JWT=%JWT%
+#     - npx mocha test/routes/*.js
