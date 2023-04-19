@@ -22,5 +22,4 @@ test:
     - set DB_SERVER=%DB_SERVER%
     - set JWT=%JWT%
     - npx mocha test/routes/*.js
-    - docker run -it hr npx mocha test/routes/*.js
 
