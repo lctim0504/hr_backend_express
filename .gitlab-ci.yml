@@ -11,6 +11,7 @@ build:
     - l0cal, d0cker, tim-pc
   script:
     - pwd
+    - systemctl status docker
     - docker build -t hr -f DockerFile .
     - docker run -p 5000:5000 hr
 
