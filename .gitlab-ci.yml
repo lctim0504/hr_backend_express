@@ -8,12 +8,10 @@ variables:
   DOCKER_TLS_CERTDIR: ''
 
 build:
-  image: docker:latest
+  image: alpine3.17
   tags:
-    - l0cal, d0cker, tim-pc
+    - D0cker2, chooseMe, myD0ckerRunner
   script:
-    - systemctl start docker
-    - systemctl status docker
     - docker version
     - docker images
     - docker ps
@@ -22,7 +20,7 @@ build:
     - docker run -p 5000:5000 hr
 
 test:
-  image: docker:latest
+  image: alpine3.17
   tags:
     - l0cal, d0cker, tim-pc
   needs:
