@@ -12,11 +12,10 @@ build:
   tags:
     - l0cal, d0cker, tim-pc
   script:
-    - docker version
     - systemctl start docker
     - systemctl status docker
+    - docker version
     - docker images
-    - systemctl status docker
     - docker ps
     - docker port
     - docker build -t hr -f DockerFile .
