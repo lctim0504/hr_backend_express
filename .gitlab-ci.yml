@@ -1,13 +1,24 @@
 stages:
+  - build
   - test
+
+build:
+  image: docker:latest
+  tags:
+    - l0cal, d0cker, tim-pc
+  script:
+    - docker build -t hr .
 
 before_script:
   - cd server
   - npm install
 
 test:
+  image: docker:latest
   tags:
-    - shell, myrunner, timpc
+    - l0cal, d0cker, tim-pc
+  needs:
+    - build
   script:
     - set DB_NAME=%DB_NAME%
     - set DB_USER=%DB_USER%
@@ -15,3 +26,5 @@ test:
     - set DB_SERVER=%DB_SERVER%
     - set JWT=%JWT%
     - npx mocha test/routes/*.js
+    - docker run -it hr npx mocha test/routes/*.js
+

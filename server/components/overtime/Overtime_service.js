@@ -51,14 +51,22 @@ const updateOvertime = catchError(async (req, res) => {
     const seq = req.params.seq;
     const body = await updateOvertimeSchema.validateAsync(req.body);
 
-    const data = {
-        ...body,
-        last_update_time: SQLtimeParser(now),
-        act_start_time: SQLtimeParser(body.act_start_time),
-        act_end_time: SQLtimeParser(body.act_end_time),
-        permit_time: SQLtimeParser(body.permit_time),
-        year: new Date().getFullYear(),
-    };
+    if (body.act_start_time == true) {
+        const data = {
+            ...body,
+            last_update_time: SQLtimeParser(now),
+            act_start_time: SQLtimeParser(body.act_start_time),
+            act_end_time: SQLtimeParser(body.act_end_time),
+            year: body.year,
+        };
+    } else {
+        const data = {
+            ...body,
+            last_update_time: SQLtimeParser(now),
+            permit_time: SQLtimeParser(now),
+            sv_permit: body.sv_permit,
+        };
+    }
 
     const updatedOvertime = await overtimeRepository.updateOvertime(seq, data);
     res.json(updatedOvertime);
