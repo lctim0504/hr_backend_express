@@ -8,6 +8,7 @@ build:
   services:
   - name: docker:dind
     alias: thedockerhost
+    entrypoint: ["--tls=false"]
   variables:
     DOCKER_HOST: tcp://thedockerhost:2375/
     DOCKER_DRIVER: overlay2
