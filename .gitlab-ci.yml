@@ -9,10 +9,6 @@ build:
   script:
     - docker build -t hr .
 
-before_script:
-  - cd server
-  - npm install
-
 test:
   image: docker:latest
   tags:
