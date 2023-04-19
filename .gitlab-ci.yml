@@ -12,6 +12,7 @@ build:
   tags:
     - D0cker2, chooseMe, myD0ckerRunner
   script:
+    - systemctl start docker
     - docker version
     - docker images
     - docker ps
