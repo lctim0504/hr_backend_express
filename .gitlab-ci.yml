@@ -1,7 +1,7 @@
 stages:
   - build
   - test
-  
+
 variables:
   DOCKER_HOST: tcp://docker:2375/
   DOCKER_DRIVER: overlay2 
@@ -12,9 +12,8 @@ build:
   tags:
     - l0cal, d0cker, tim-pc
   script:
-    - pwd
-    - ls
     - docker version
+    - systemctl start docker
     - systemctl status docker
     - docker images
     - systemctl status docker
