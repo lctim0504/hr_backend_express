@@ -8,7 +8,7 @@ variables:
   DOCKER_TLS_CERTDIR: ''
 
 build:
-  image: alpine3.17
+  image: node:14-alpine
   tags:
     - D0cker2, chooseMe, myD0ckerRunner
   script:
@@ -20,7 +20,7 @@ build:
     - docker run -p 5000:5000 hr
 
 test:
-  image: alpine3.17
+  image: node:14-alpine
   tags:
     - l0cal, d0cker, tim-pc
   needs:
