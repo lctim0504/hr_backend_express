@@ -5,6 +5,8 @@ stages:
 build:
   stage: build
   image: docker:20-dind
+  tags:
+  - chooseMe
   services:
   - name: docker:dind
     command: ["--tls=false"]
