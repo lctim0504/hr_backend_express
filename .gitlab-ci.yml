@@ -1,9 +1,8 @@
 stages:
-  - testing
+  - test
 
 run unit test:
-  stage:
-    - testing
+  stage: test
   image: node:latest
   tags:
     - she11
