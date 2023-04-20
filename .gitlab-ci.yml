@@ -4,13 +4,15 @@ stages:
 
 build:
   stage: build
-  image: docker:20-dind
+  image: docker:20.10.24-dind-alpine3.17
   tags:
   - chooseMe
+  before_script:
+    - ./docker_install.sh > /dev/null
   variables: 
     DOCKER_HOST: tcp://docker:2375/
   services:
-  - name: docker:dind
+  - name: docker:20.10.24-dind-alpine3.17
     command: ["--tls=false"]
   script:
   - systemctl status docker
@@ -20,17 +22,4 @@ build:
   - nmap -sT -p- docker
   - docker build -t hr -f DockerFile .
   - docker run -p 5000:5000 hr      
-# test:
-#   image: node:14-alpine
-#   tags:
-#     - l0cal, d0cker, tim-pc
-#   needs:
-#     - build
-#   script:
-#     - pwd
-#     - set DB_NAME=%DB_NAME%
-#     - set DB_USER=%DB_USER%
-#     - set DB_PASS=%DB_PASS%
-#     - set DB_SERVER=%DB_SERVER%
-#     - set JWT=%JWT%
-#     - npx mocha test/routes/*.js
+
