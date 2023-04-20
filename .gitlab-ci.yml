@@ -10,28 +10,38 @@ variables:
   DB_SERVER: $DB_SERVER
   JWT: $JWT
 
-# run_unit_test:
-#   stage: test
-#   image: node:latest
-#   tags:
-#     - she11
-#   before_script:
-#     - pwd
-#     - cd server
-#     - npm install
-#   script:
-#     - pwd
-#     - npx mocha test/routes/*.js
+test_server:
+  stage: test
+  image: node:latest
+  tags:
+    - she11
+  before_script:
+    - pwd
+    - cd server
+    - npm install
+  script:
+    - pwd
+    - npx mocha test/routes/*.js
+
+test_client:
+  stage: test
+  image: node:latest
+  tags:
+    - she11
+  before_script:
+    - pwd
+    - cd client
+    - npm install
+  script:
+    - pwd
+    - echo "Frontend tests not implemented yet."
 
 build_docker_image:
   stage: build
   tags:
     - she11
-  # needs:
-  #   - run_unit_test
   script:
     - pwd
-    # - docker build -t hr .
     - docker build -t $CI_REGISTRY_IMAGE .
 
 push_to_registry:
@@ -41,7 +51,7 @@ push_to_registry:
   needs:
     - build_docker_image
   before_script:
-    - docker login -u $CI_REGISTRY_USER	-p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
     - pwd
     - echo $CI_REGISTRY_IMAGE
