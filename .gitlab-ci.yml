@@ -1,21 +1,17 @@
 stages:
-  - build
+  - test
 
-build:
-  stage: build
-  image: docker:20.10.24-dind-alpine3.17
+run unit test:
+  stage:
+    - test
+  image: node:14-alpine
   tags:
-    - chooseMe
-  variables: 
-    DOCKER_HOST: tcp://docker:2375/
-  services:
-    - name: docker:20.10.24-dind-alpine3.17
-      command: ["--tls=false"]
+    - she11
   script:
-    - apk update
-    - apk add nmap
-    - docker --version
-    - nmap -sT -p- docker
-    - docker build -t hr -f DockerFile .
-    - docker run -p 5000:5000 hr      
-
+    # - pwd
+    - set DB_NAME=%DB_NAME%
+    - set DB_USER=%DB_USER%
+    - set DB_PASS=%DB_PASS%
+    - set DB_SERVER=%DB_SERVER%
+    - set JWT=%JWT%
+    - npx mocha test/routes/*.js
