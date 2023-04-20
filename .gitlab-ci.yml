@@ -22,7 +22,7 @@ variables:
 #   script:
 #     - pwd
 #     - npx mocha test/routes/*.js
-    
+
 build_docker_image:
   stage: build
   tags:
