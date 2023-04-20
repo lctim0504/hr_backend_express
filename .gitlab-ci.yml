@@ -1,15 +1,21 @@
 stages:
   - test
 
-run_unit_test:
+run unit test:
+  stage:
+    - test
   image: node:14-alpine
   tags:
     - she11
   script:
-    # - pwd
+    - pwd
     - set DB_NAME=%DB_NAME%
     - set DB_USER=%DB_USER%
     - set DB_PASS=%DB_PASS%
     - set DB_SERVER=%DB_SERVER%
     - set JWT=%JWT%
+    - cd server
     - npx mocha test/routes/*.js
+
+
+
