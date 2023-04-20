@@ -6,6 +6,8 @@ run unit test:
   image: node:latest
   tags:
     - she11
+  before_script:
+    - npm install
   script:
     - pwd
     - set DB_NAME=%DB_NAME%
@@ -13,4 +15,5 @@ run unit test:
     - set DB_PASS=%DB_PASS%
     - set DB_SERVER=%DB_SERVER%
     - set JWT=%JWT%
+    - cd server
     - npx mocha test/routes/*.js
