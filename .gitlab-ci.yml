@@ -2,8 +2,6 @@ stages:
   - test
 
 run unit test:
-  stage:
-    - test
   image: node:14-alpine
   tags:
     - she11
