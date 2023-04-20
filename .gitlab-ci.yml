@@ -2,6 +2,13 @@ stages:
   - test
   - build
 
+variables:
+  DB_NAME: $DB_NAME
+  DB_USER: $DB_USER
+  DB_PASS: $DB_PASS
+  DB_SERVER: $DB_SERVER
+  JWT: $JWT
+
 # run_unit_test:
 #   stage: test
 #   image: node:latest
@@ -13,11 +20,6 @@ stages:
 #     - npm install
 #   script:
 #     - pwd
-#     - set DB_NAME=%DB_NAME%
-#     - set DB_USER=%DB_USER%
-#     - set DB_PASS=%DB_PASS%
-#     - set DB_SERVER=%DB_SERVER%
-#     - set JWT=%JWT%
 #     - npx mocha test/routes/*.js
     
 build_docker_image:
@@ -29,5 +31,4 @@ build_docker_image:
   script:
     - pwd
     - docker build -t hr123 -f DockerFile .
-    - docker run -p 5000:5000 hr123
 
