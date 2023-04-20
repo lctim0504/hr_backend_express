@@ -1,25 +1,21 @@
 stages:
   - build
-  - test
 
 build:
   stage: build
   image: docker:20.10.24-dind-alpine3.17
   tags:
-  - chooseMe
-  before_script:
-    - ./docker_install.sh > /dev/null
+    - chooseMe
   variables: 
     DOCKER_HOST: tcp://docker:2375/
   services:
-  - name: docker:20.10.24-dind-alpine3.17
-    command: ["--tls=false"]
+    - name: docker:20.10.24-dind-alpine3.17
+      command: ["--tls=false"]
   script:
-  - systemctl status docker
-  - systemctl start docker
-  - apk update
-  - apk add nmap
-  - nmap -sT -p- docker
-  - docker build -t hr -f DockerFile .
-  - docker run -p 5000:5000 hr      
+    - apk update
+    - apk add nmap
+    - docker --version
+    - nmap -sT -p- docker
+    - docker build -t hr -f DockerFile .
+    - docker run -p 5000:5000 hr      
 
