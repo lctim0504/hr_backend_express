@@ -1,7 +1,8 @@
 stages:
   - test
+  - build
 
-run unit test:
+run_unit_test:
   stage: test
   image: node:latest
   tags:
@@ -18,3 +19,13 @@ run unit test:
     - set DB_SERVER=%DB_SERVER%
     - set JWT=%JWT%
     - npx mocha test/routes/*.js
+    
+build docker image:
+  stage: build
+  tags:
+    - she11
+  needs:
+    - run_unit_test
+  script:
+    - docker build -t hr123 .
+
