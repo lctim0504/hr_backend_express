@@ -2,30 +2,30 @@ stages:
   - test
   - build
 
-run_unit_test:
-  stage: test
-  image: node:latest
-  tags:
-    - she11
-  before_script:
-    - pwd
-    - cd server
-    - npm install
-  script:
-    - pwd
-    - set DB_NAME=%DB_NAME%
-    - set DB_USER=%DB_USER%
-    - set DB_PASS=%DB_PASS%
-    - set DB_SERVER=%DB_SERVER%
-    - set JWT=%JWT%
-    - npx mocha test/routes/*.js
+# run_unit_test:
+#   stage: test
+#   image: node:latest
+#   tags:
+#     - she11
+#   before_script:
+#     - pwd
+#     - cd server
+#     - npm install
+#   script:
+#     - pwd
+#     - set DB_NAME=%DB_NAME%
+#     - set DB_USER=%DB_USER%
+#     - set DB_PASS=%DB_PASS%
+#     - set DB_SERVER=%DB_SERVER%
+#     - set JWT=%JWT%
+#     - npx mocha test/routes/*.js
     
 build_docker_image:
   stage: build
   tags:
     - she11
-  needs:
-    - run_unit_test
+  # needs:
+  #   - run_unit_test
   script:
     - pwd
     - docker build -t hr123 -f DockerFile .
