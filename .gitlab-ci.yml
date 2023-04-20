@@ -20,12 +20,14 @@ run_unit_test:
     - set JWT=%JWT%
     - npx mocha test/routes/*.js
     
-build docker image:
+build_docker_image:
   stage: build
   tags:
     - she11
   needs:
     - run_unit_test
   script:
-    - docker build -t hr123 .
+    - pwd
+    - docker build -t hr123 -f DockerFile .
+    - docker run -p 5000:5000 hr123
 
