@@ -32,7 +32,7 @@ build_docker_image:
   script:
     - pwd
     # - docker build -t hr123 -f DockerFile .
-    - docker build -t $CI_REGISTRY_IMAGE:1.0 .
+    - docker build -t $CI_REGISTRY_IMAGE:1.0 -f DockerFile .
 
 push_to_registry:
   stage: publish
