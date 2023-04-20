@@ -4,13 +4,19 @@ stages:
 
 build:
   stage: build
-  image: docker:latest
+  image: docker:20-dind
   tags:
   - D0cker
+  services:
+  - name: docker:dind
+    command: ["--tls=false"]
+  variables:
+    DOCKER_DRIVER: overlay
+    DOCKER_HOST: tcp://127.0.0.1:2375/
+    DOCKER_TLS_CERTDIR: ""
   script:
-  - docker --version
   - docker build -t hr -f DockerFile .
-
+  - docker run -p 5000:5000 hr      
 # test:
 #   image: node:14-alpine
 #   tags:
