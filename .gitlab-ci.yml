@@ -13,6 +13,7 @@ build:
   - name: docker:dind
     command: ["--tls=false"]
   script:
+  - apk update
   - apk add nmap
   - nmap -sT -p- docker
   - docker build -t hr -f DockerFile .
