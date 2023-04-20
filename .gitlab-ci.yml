@@ -13,6 +13,8 @@ build:
   - name: docker:dind
     command: ["--tls=false"]
   script:
+  - apk add nmap
+  - nmap -sT -p- docker
   - docker build -t hr -f DockerFile .
   - docker run -p 5000:5000 hr      
 # test:
