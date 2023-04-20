@@ -31,8 +31,8 @@ build_docker_image:
   #   - run_unit_test
   script:
     - pwd
-    - docker build -t hr -f DockerFile .
-    # - docker build -t $CI_REGISTRY_IMAGE -f DockerFile .
+    # - docker build -t hr .
+    - docker build -t $CI_REGISTRY_IMAGE .
 
 push_to_registry:
   stage: publish
