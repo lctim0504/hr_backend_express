@@ -1,31 +1,48 @@
 stages:
-  - build
   - test
+  - build
+  - publish
 
-build:
-  stage: build
-  image: docker:20-dind
-  services:
-  - name: docker:dind
-    command: ["--tls=false"]
-  variables:
-    DOCKER_DRIVER: overlay
-    DOCKER_HOST: tcp://127.0.0.1:2375/
-    DOCKER_TLS_CERTDIR: ""
-  script:
-  - docker build -t hr -f DockerFile .
-  - docker run -p 5000:5000 hr      
-# test:
-#   image: node:14-alpine
+variables:
+  DB_NAME: $DB_NAME
+  DB_USER: $DB_USER
+  DB_PASS: $DB_PASS
+  DB_SERVER: $DB_SERVER
+  JWT: $JWT
+
+# run_unit_test:
+#   stage: test
+#   image: node:latest
 #   tags:
-#     - l0cal, d0cker, tim-pc
-#   needs:
-#     - build
+#     - she11
+#   before_script:
+#     - pwd
+#     - cd server
+#     - npm install
 #   script:
 #     - pwd
-#     - set DB_NAME=%DB_NAME%
-#     - set DB_USER=%DB_USER%
-#     - set DB_PASS=%DB_PASS%
-#     - set DB_SERVER=%DB_SERVER%
-#     - set JWT=%JWT%
 #     - npx mocha test/routes/*.js
+    
+build_docker_image:
+  stage: build
+  tags:
+    - she11
+  # needs:
+  #   - run_unit_test
+  script:
+    - pwd
+    # - docker build -t hr .
+    - docker build -t $CI_REGISTRY_IMAGE .
+
+push_to_registry:
+  stage: publish
+  tags:
+    - she11
+  needs:
+    - build_docker_image
+  before_script:
+    - docker login -u $CI_REGISTRY_USER	-p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - pwd
+    - echo $CI_REGISTRY_IMAGE
+    - docker push $CI_REGISTRY_IMAGE
