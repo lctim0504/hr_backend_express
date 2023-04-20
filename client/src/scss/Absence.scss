@@ -1,0 +1,262 @@
+.container {
+    display: flex;
+    width: 100%;
+
+    .label-inline {
+        .labelText {
+            display: flex;
+            flex: 1;
+        }
+
+        .center {
+            justify-content: center;
+        }
+
+        .labelText2 {
+            display: flex;
+            flex: 2;
+
+            h4 {
+                margin-right: 0.5rem;
+            }
+        }
+
+        .labelText3 {
+            display: flex;
+            flex: 3;
+        }
+    }
+
+    .sleet {
+        display: inline-block;
+        justify-content: center;
+        flex: 1;
+    }
+
+    .record-btn {
+        margin-left: 5vh;
+    }
+
+    .calendar {
+        margin-top: 2%;
+
+        .calendar-header {
+            display: inline-block;
+        }
+
+        .calendar-day {
+            display: flex;
+            flex: 2;
+            text-align: center;
+            margin: 0 10px 0 10px;
+        }
+
+        .calendar-time {
+            display: flex;
+            flex: 2;
+            justify-content: left;
+            margin-top: 1%;
+        }
+
+        .calendar-hour {
+            display: flex;
+            flex: 1;
+            justify-content: left;
+        }
+
+        .calendar-minute {
+            display: flex;
+            flex: 1;
+        }
+
+        .four {
+            flex: 4;
+            margin: 0 10px 0 10px;
+        }
+    }
+
+    .select {
+        display: flex;
+        flex: 1;
+        text-align: right;
+        margin: 0 10px 0 10px;
+    }
+
+    .button-end {
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        margin: 2% 0%;
+    }
+
+    .schedule {
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        max-height: 400px;
+        margin: 2%;
+
+        span {
+            background-color: "transparent";
+            border-radius: 50%;
+            padding: 10% 30%;
+        }
+
+
+    }
+
+    .approval {
+        background-color: #6ba5ff;
+    }
+
+    .un-approval {
+        background-color: rgb(224, 93, 93);
+
+    }
+
+    .un-approval-work {
+        background: linear-gradient(135deg, rgb(37, 220, 37) 50%, rgb(224, 93, 93) 50%);
+    }
+
+    .approval-work {
+        background: linear-gradient(135deg, rgb(37, 220, 37) 50%, #6ba5ff 50%);
+    }
+
+    .work {
+        background-color: rgb(37, 220, 37);
+        // background: linear-gradient(135deg, rgb(110, 219, 110) 50%, #6ba5ff 50%);
+    }
+
+    .holiday {
+        background-color: #b6b22c;
+    }
+
+    .one {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+
+        .selcet-leave-type {
+            display: inline-block;
+        }
+
+        span {
+            display: inline-block;
+            color: white;
+            border-radius: 50%;
+        }
+
+        .call-icon {
+            width: 25px;
+            height: 25px;
+        }
+
+        .wrap:first-child {
+            margin-top: 25%;
+        }
+
+        h2 {
+            display: inline-block;
+            margin-left: 2%;
+        }
+    }
+
+    .three {
+        display: flex;
+        flex-direction: column;
+        flex: 3;
+        margin-right: 5%;
+
+        .wrap {
+            display: flex;
+            flex-direction: row;
+        }
+    }
+
+    .two {
+        display: flex;
+        flex: 2;
+
+        h3 {
+            padding-left: 2vh;
+        }
+    }
+}
+
+.center {
+    text-align: center;
+    justify-content: center;
+}
+
+.right {
+    text-align: right;
+    justify-content: right;
+    margin-right: 5%;
+}
+
+.left {
+    text-align: left;
+    justify-content: left;
+}
+
+.table {
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    max-height: 400px;
+    overflow-y: auto;
+    margin: 2%;
+    border: 1px solid #12957d;
+
+    .approval {
+        color: rgb(224, 93, 93);
+
+        &[data-permit="true"] {
+            color: #6ba5ff;
+        }
+    }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1280px) {
+
+    .container {
+        .three {
+            margin-right: 2%;
+            flex: 10;
+        }
+
+        .span {
+            flex-direction: column;
+        }
+
+    }
+}
+
+@media screen and (max-width: 1024px) {
+
+    .container {
+        display: flex;
+        width: 100%;
+
+        .one {
+            display: none;
+        }
+
+        .five {
+            display: none;
+        }
+
+        .schedule {
+            display: none;
+        }
+
+        .three {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            margin-left: 5%;
+            flex: 1;
+        }
+    }
+}

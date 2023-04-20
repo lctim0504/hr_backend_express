@@ -1,0 +1,85 @@
+.container2 {
+    display: flex;
+    max-width: 100%;
+
+    .one {
+        display: flex;
+        flex: 1;
+
+        // border-right: 1px solid #9a1b1b;
+        .ant-menu-submenu-title,
+        .ant-menu-item-only-child {
+            border: 1px solid #c2adad;
+        }
+
+        // .ant-menu-item-only-child {
+        //     border: 1px solid #687bf6;
+
+        // }
+    }
+
+    .five {
+        margin-left: 5vh;
+        display: flex;
+        flex: 5;
+
+    }
+
+    .ant-table-tbody {
+        background-color: #dddddd;
+    }
+
+    .direction-column {
+        flex-direction: column;
+        width: 100%;
+
+        .upload {
+            margin: 10% 0 0 25%;
+        }
+
+    }
+
+    .ant-card {
+        max-width: 1200px;
+    }
+
+    .ant-table-row {
+        background-color: #F0F8FF;
+    }
+
+    #nest-messages {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        &>div {
+            width: calc(50% - 10px);
+            /* 10px 為 div 之間的間隔 */
+            margin-bottom: 2vh;
+            /* 設置 div 之間的垂直間隔 */
+        }
+
+        &>div:last-child {
+            width: 100%;
+        }
+
+        .ant-form-item-control-input-content {
+            text-align: right;
+        }
+    }
+
+    .btn-green {
+        border-color: #169816;
+        color: #169816;
+    }
+    .icon-green{
+        background-color: transparent;
+        color: #169816;
+        border-color: transparent;
+
+    }
+
+    .ant-divider{
+        margin: 16px;
+    }
+}
