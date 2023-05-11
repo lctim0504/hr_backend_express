@@ -1,3 +1,1 @@
-docker practice
-gitlab CI/CD practice
-jwt practice
+docker, gitlab CI/CD, jwt practice
