@@ -1,9 +1,9 @@
 import { Sequelize } from "sequelize";
 import leaveRepository from "./Leave_repository.js";
-import { transporter } from "../../nodemailer.js";
 import { createLeaveRecordSchema, updateBulkLeaveRecordSchema, updateLeaveRecordSchema } from "../../schema/LeaveRecord_schema.js";
 import { catchError } from "../../common/catchError.js";
 import { timeParser } from "../../common/timeParser.js";
+import { transporter } from "../../middleware/nodemailer.js";
 
 const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
 

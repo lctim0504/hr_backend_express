@@ -1,6 +1,5 @@
 import { Sequelize } from "sequelize";
 import quotaRepository from "./Quota_repository.js";
-import { transporter } from "../../nodemailer.js";
 import { now } from "../../common/timeParser.js";
 
 const catchError = (handler) => async (req, res, next) => {

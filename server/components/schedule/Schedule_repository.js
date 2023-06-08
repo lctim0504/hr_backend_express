@@ -1,5 +1,3 @@
-import config from "../../Database2.js";
-import sql from "mssql"
 import Schedule from "../../model/Schedule_model.js";
 import Employee from "../../model/Employee_model.js";
 

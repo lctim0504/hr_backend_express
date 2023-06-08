@@ -38,7 +38,13 @@ const getFilterOvertime = async ({ department_id, employee_id, overtime_type_id 
 };
 
 const getAllOvertimes = async () => {
-    return await OvertimeRecord.findAll();
+    const results = await OvertimeRecord.findAll();
+    const formattedResults = results.map(result => ({
+        ...result.dataValues,
+        start_time: timeParser(result.start_time),
+        end_time: timeParser(result.end_time),
+    }));
+    return formattedResults;
 };
 
 const getOvertimeById = async (employee_id) => {

@@ -49,7 +49,11 @@ const getAuth = catchError(async (req, res) => {
         isAdmin: userData.isAdmin,
         isSupervisor: userData.isSupervisor
     }, process.env.JWT)
-    //console.log(token);
+    console.log(123);
+    console.log(token);
+    // res.cookie('JWT_token', token, { httpOnly: true })
+    //     .status(200).json(userData)
+    res.setHeader('Authorization', `${token}`);
     res.cookie('JWT_token', token, { httpOnly: true })
         .status(200).json(userData)
 });

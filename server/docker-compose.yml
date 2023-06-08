@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  hr12345:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 192.168.0.39:3002:5000
+    environment:
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      DB_SERVER: ${DB_SERVER}
+      JWT: ${JWT}
+    restart: always
