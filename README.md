@@ -1,1 +1,1 @@
-# hr_practice
+docker, gitlab CI/CD, jwt practice
