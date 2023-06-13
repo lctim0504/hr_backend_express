@@ -49,13 +49,16 @@ const getAuth = catchError(async (req, res) => {
         isAdmin: userData.isAdmin,
         isSupervisor: userData.isSupervisor
     }, process.env.JWT)
-    console.log(123);
-    console.log(token);
     // res.cookie('JWT_token', token, { httpOnly: true })
     //     .status(200).json(userData)
-    res.setHeader('Authorization', `${token}`);
-    res.cookie('JWT_token', token, { httpOnly: true })
-        .status(200).json(userData)
+    const responseData = {
+        name: userData.name,
+        work_type: userData.work_type,
+        work_type_id: userData.work_type_id,
+        department_id: userData.department_id,
+        token: token
+    }
+    res.status(200).json(responseData)
 });
 
 const deleteAccount = catchError(async (req, res) => {
